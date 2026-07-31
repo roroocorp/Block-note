@@ -59,4 +59,236 @@ Daily Life <span>Ultra</span> IA
 </div>
 
 
-<!-- SUITE PARTIE 2 ICI -->
+
+<!-- PAGE ACCUEIL -->
+
+<div id="home" class="page active">
+
+
+<div class="stat-row">
+
+<div class="stat-box">
+<div class="n" id="statTotal">0</div>
+<div class="l">Tâches</div>
+</div>
+
+
+<div class="stat-box">
+<div class="n" id="statDone">0</div>
+<div class="l">Terminées</div>
+</div>
+
+
+<div class="stat-box">
+<div class="n" id="statLeft">0</div>
+<div class="l">Restantes</div>
+</div>
+
+
+</div>
+
+
+
+
+<div class="card">
+
+
+<div class="card-title">
+<div class="icon">
+🎨
+</div>
+
+Couleur
+</div>
+
+
+<div class="swatches">
+
+
+<div class="swatch selected"
+data-color="#10b981"
+style="background:#10b981">
+</div>
+
+
+<div class="swatch"
+data-color="#3b82f6"
+style="background:#3b82f6">
+</div>
+
+
+<div class="swatch"
+data-color="#a855f7"
+style="background:#a855f7">
+</div>
+
+
+<div class="swatch"
+data-color="#f97316"
+style="background:#f97316">
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="card">
+
+
+<div class="card-title">
+
+<div class="icon">
+🌍
+</div>
+
+Langue
+
+</div>
+
+
+
+<select id="languageSelect">
+
+
+<option value="fr">
+🇫🇷 Français
+</option>
+
+
+<option value="en">
+🇬🇧 English
+</option>
+
+
+<option value="es">
+🇪🇸 Español
+</option>
+
+
+<option value="de">
+🇩🇪 Deutsch
+</option>
+
+
+<option value="zh">
+🇨🇳 中文
+</option>
+
+
+</select>
+
+
+</div>
+
+
+
+
+
+
+<div class="card">
+
+
+<div class="card-title">
+
+<div class="icon">
+📝
+</div>
+
+<span id="lblTasks">
+Notes du jour
+</span>
+
+
+</div>
+
+
+
+<div style="display:flex;gap:8px;">
+
+
+<input id="taskInput"
+placeholder="Écrire une note...">
+
+
+<button class="btn"
+onclick="addTask()"
+style="width:auto">
+
++
+
+</button>
+
+
+</div>
+
+
+
+<div id="taskList"></div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+<!-- PAGE IA -->
+
+
+<div id="ia" class="page">
+
+
+<div class="ia-page-inner">
+
+
+<div id="chatContainer">
+
+
+<div class="message iaMsg">
+
+Salut 👋 Je suis ton IA perso.
+
+</div>
+
+
+</div>
+
+
+
+<div id="iaInputArea">
+
+
+<textarea id="iaInput"
+placeholder="Écris un message..."></textarea>
+
+
+<button class="sendBtn"
+onclick="askIA()">
+
+➤
+
+</button>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+<!-- COLLE LA PARTIE 3 ICI -->
