@@ -241,4 +241,356 @@ Valider
 
 
 
-<!-- ⬇️ COLLE LA PARTIE 3 ICI ⬇️ -->
+<script>
+
+/* HORLOGE */
+
+function tick(){
+
+let d=new Date();
+
+document.getElementById("time").textContent =
+d.toLocaleTimeString("fr-FR");
+
+}
+
+tick();
+
+setInterval(tick,1000);
+
+
+
+/* NAVIGATION */
+
+function showPage(id,el){
+
+document.querySelectorAll(".page")
+.forEach(p=>p.classList.remove("active"));
+
+document.getElementById(id).classList.add("active");
+
+
+document.querySelectorAll(".navBox")
+.forEach(b=>b.classList.remove("active"));
+
+el.classList.add("active");
+
+}
+
+
+
+
+/* LANGUES */
+
+const T={
+
+fr:{
+task:"Ajouter une tâche...",
+write:"Écris un message...",
+tasks:"Tâches du jour",
+promo:"Valider un code"
+},
+
+
+en:{
+task:"Add a task...",
+write:"Write a message...",
+tasks:"Today's tasks",
+promo:"Validate code"
+},
+
+
+es:{
+task:"Añadir tarea...",
+write:"Escribe un mensaje...",
+tasks:"Tareas del día",
+promo:"Validar código"
+},
+
+
+de:{
+task:"Aufgabe hinzufügen...",
+write:"Nachricht schreiben...",
+tasks:"Heutige Aufgaben",
+promo:"Code prüfen"
+},
+
+
+zh:{
+task:"添加任务...",
+write:"输入消息...",
+tasks:"今日任务",
+promo:"验证代码"
+}
+
+
+};
+
+
+
+document.getElementById("languageSelect")
+.addEventListener("change",function(){
+
+
+let l=this.value;
+
+
+document.getElementById("taskInput")
+.placeholder=T[l].task;
+
+
+document.getElementById("iaInput")
+.placeholder=T[l].write;
+
+
+document.getElementById("lblTasks")
+.textContent=T[l].tasks;
+
+
+document.getElementById("lblPromo")
+.textContent=T[l].promo;
+
+
+});
+
+
+
+
+
+/* NOTES SAUVEGARDÉES */
+
+let tasks=
+JSON.parse(localStorage.getItem("tasks") || "[]");
+
+
+
+function saveTasks(){
+
+localStorage.setItem(
+"tasks",
+JSON.stringify(tasks)
+);
+
+}
+
+
+
+
+function renderTasks(){
+
+let list=document.getElementById("taskList");
+
+
+if(tasks.length===0){
+
+list.innerHTML=
+"<p>Aucune tâche 🎉</p>";
+
+}
+
+else{
+
+
+list.innerHTML=tasks.map((t,i)=>`
+
+
+<div class="task">
+
+
+<div onclick="toggleTask(${i})">
+
+${t.done ? "✅":"⬜"}
+
+</div>
+
+
+<div class="task-text">
+
+${t.text}
+
+</div>
+
+
+<div 
+class="task-del"
+onclick="delTask(${i})">
+
+🗑️
+
+</div>
+
+
+</div>
+
+
+`).join("");
+
+}
+
+
+
+let done=tasks.filter(t=>t.done).length;
+
+
+document.getElementById("statTotal")
+.textContent=tasks.length;
+
+
+document.getElementById("statDone")
+.textContent=done;
+
+
+document.getElementById("statLeft")
+.textContent=tasks.length-done;
+
+
+}
+
+
+
+function addTask(){
+
+let input=document.getElementById("taskInput");
+
+
+if(input.value.trim()=="") return;
+
+
+tasks.unshift({
+
+text:input.value,
+
+done:false
+
+});
+
+
+input.value="";
+
+
+saveTasks();
+
+renderTasks();
+
+}
+
+
+
+function delTask(i){
+
+tasks.splice(i,1);
+
+saveTasks();
+
+renderTasks();
+
+}
+
+
+
+function toggleTask(i){
+
+tasks[i].done=!tasks[i].done;
+
+saveTasks();
+
+renderTasks();
+
+}
+
+
+renderTasks();
+
+
+
+
+
+/* IA SIMPLE */
+
+function askIA(){
+
+
+let input=document.getElementById("iaInput");
+
+let text=input.value.trim();
+
+
+if(!text)return;
+
+
+
+let chat=document.getElementById("chatContainer");
+
+
+
+chat.innerHTML+=`
+
+<div class="message userMsg">
+
+${text}
+
+</div>
+
+`;
+
+
+
+chat.innerHTML+=`
+
+<div class="message iaMsg">
+
+Je réfléchis 🤖... Je vais t'aider !
+
+</div>
+
+`;
+
+
+
+input.value="";
+
+
+chat.scrollTop=chat.scrollHeight;
+
+
+}
+
+
+
+
+
+/* PROMO */
+
+function validatePromo(){
+
+let code=document.getElementById("promoInput").value;
+
+
+let result=document.getElementById("promoResult");
+
+
+if(code=="DAILY2026"){
+
+
+result.innerHTML="✅ Code valide !";
+
+
+}
+
+else{
+
+
+result.innerHTML="❌ Code incorrect";
+
+
+}
+
+
+}
+
+
+</script>
+
+
+</body>
+</html>
