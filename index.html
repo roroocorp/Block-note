@@ -1,992 +1,346 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Daily Life Ultra IA</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 
 <style>
 
 *{
-box-sizing:border-box;
-margin:0;
-padding:0;
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
 }
 
 :root{
+    --accent:#10b981;
+    --accent2:#059669;
+    --bg1:#081525;
+    --bg2:#102746;
 
---accent:#10b981;
---accent2:#059669;
+    --glass:rgba(255,255,255,.07);
+    --glass2:rgba(255,255,255,.13);
 
---bg1:#0a1628;
---bg2:#0f2040;
+    --border:rgba(255,255,255,.12);
 
---glass:rgba(255,255,255,0.07);
---glass2:rgba(255,255,255,0.13);
+    --text:#f0fdf4;
+    --muted:rgba(255,255,255,.55);
 
---border:rgba(255,255,255,0.1);
-
---text:#f0fdf4;
---muted:rgba(255,255,255,0.5);
-
---radius:18px;
---radius-sm:12px;
-
+    --radius:20px;
+    --radius-sm:14px;
 }
 
 
 body{
 
-min-height:100vh;
+    min-height:100vh;
 
-background:var(--bg1);
+    background:
+    radial-gradient(circle at top right,#12395a,transparent 35%),
+    linear-gradient(160deg,var(--bg1),var(--bg2));
 
-color:var(--text);
+    color:var(--text);
 
-font-family:'DM Sans',sans-serif;
+    font-family:'DM Sans',sans-serif;
 
-display:flex;
+    display:flex;
+    flex-direction:column;
 
-flex-direction:column;
-
-overflow-x:hidden;
+    overflow-x:hidden;
 
 }
 
 
+/* =========================
+   BACKGROUND ORBS
+========================= */
 
-/* FOND */
 
 .orb{
 
-position:fixed;
+    position:fixed;
 
-border-radius:50%;
+    border-radius:50%;
 
-filter:blur(80px);
+    filter:blur(90px);
 
-opacity:0.18;
+    opacity:.25;
 
-pointer-events:none;
+    pointer-events:none;
 
-z-index:0;
+    z-index:0;
 
 }
 
 
 .orb1{
 
-width:340px;
+    width:350px;
+    height:350px;
 
-height:340px;
+    top:-120px;
+    right:-100px;
 
-top:-80px;
-
-right:-60px;
-
-background:var(--accent);
+    background:var(--accent);
 
 }
 
 
 .orb2{
 
-width:280px;
+    width:300px;
+    height:300px;
 
-height:280px;
+    bottom:-100px;
+    left:-100px;
 
-bottom:60px;
-
-left:-80px;
-
-background:var(--accent2);
+    background:var(--accent2);
 
 }
 
 
 
-/* HEADER */
+/* =========================
+   HEADER
+========================= */
+
 
 header{
 
-position:relative;
+    position:relative;
 
-z-index:10;
+    z-index:5;
 
-display:flex;
+    display:flex;
 
-align-items:center;
+    align-items:center;
 
-gap:10px;
+    gap:12px;
 
-padding:16px 18px 12px;
+    padding:18px;
 
-border-bottom:1px solid var(--border);
+    border-bottom:1px solid var(--border);
 
-backdrop-filter:blur(12px);
-
-}
-
-
-.logo-dot{
-
-width:34px;
-
-height:34px;
-
-border-radius:10px;
-
-background:linear-gradient(135deg,var(--accent),var(--accent2));
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-font-size:17px;
+    backdrop-filter:blur(15px);
 
 }
 
 
-header h1{
+.logo{
 
-font-family:'Syne',sans-serif;
+    width:38px;
+    height:38px;
 
-font-size:17px;
+    border-radius:12px;
 
-font-weight:800;
+    display:flex;
 
-letter-spacing:-0.3px;
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:20px;
+
+    background:
+    linear-gradient(135deg,
+    var(--accent),
+    var(--accent2));
 
 }
 
 
-header h1 span{
+h1{
 
-color:var(--accent);
+    font-family:'Syne',sans-serif;
+
+    font-size:18px;
+
+    font-weight:800;
+
+    letter-spacing:-.5px;
+
+}
+
+
+h1 span{
+
+    color:var(--accent);
 
 }
 
 
 #time{
 
-margin-left:auto;
+    margin-left:auto;
 
-font-size:13px;
+    padding:6px 12px;
 
-color:var(--muted);
+    border-radius:30px;
 
-background:var(--glass);
+    background:var(--glass);
 
-padding:5px 12px;
+    border:1px solid var(--border);
 
-border-radius:20px;
+    color:var(--muted);
 
-border:1px solid var(--border);
+    font-size:13px;
 
 }
 
 
 
-/* NAVIGATION */
+/* =========================
+   NAVIGATION
+========================= */
+
 
 #topNav{
 
-position:relative;
+    position:relative;
 
-z-index:10;
+    z-index:5;
 
-display:flex;
+    display:flex;
 
-gap:8px;
+    gap:10px;
 
-padding:12px 14px;
+    padding:14px;
 
 }
 
 
 .navBox{
 
-flex:1;
+    flex:1;
 
-padding:11px 0;
+    text-align:center;
 
-background:var(--glass);
+    padding:12px 5px;
 
-border:1px solid var(--border);
+    border-radius:var(--radius-sm);
 
-border-radius:var(--radius-sm);
+    background:var(--glass);
 
-text-align:center;
+    border:1px solid var(--border);
 
-font-size:14px;
+    color:var(--muted);
 
-cursor:pointer;
+    cursor:pointer;
 
-color:var(--muted);
+    transition:.25s;
 
-transition:.2s;
+    font-size:14px;
 
 }
 
 
 .navBox:hover{
 
-background:var(--glass2);
+    background:var(--glass2);
 
 }
 
 
 .navBox.active{
 
-background:linear-gradient(135deg,var(--accent),var(--accent2));
+    background:
+    linear-gradient(135deg,
+    var(--accent),
+    var(--accent2));
 
-color:white;
+    color:white;
 
-font-weight:700;
+    font-weight:700;
 
 }
 
-  <style>
 
-/* PAGES */
+
+/* =========================
+   PAGES
+========================= */
+
 
 .page{
 
-display:none;
+    display:none;
 
-flex-direction:column;
+    flex-direction:column;
 
-padding:14px;
+    gap:14px;
 
-position:relative;
+    padding:14px;
 
-z-index:5;
+    position:relative;
 
-flex:1;
+    z-index:2;
 
 }
 
 
 .page.active{
 
-display:flex;
+    display:flex;
 
 }
 
 
 
-/* CARTES */
+/* =========================
+   CARDS
+========================= */
+
 
 .card{
 
-background:var(--glass);
+    background:var(--glass);
 
-border:1px solid var(--border);
+    border:1px solid var(--border);
 
-border-radius:var(--radius);
+    border-radius:var(--radius);
 
-padding:18px;
+    padding:18px;
 
-margin-bottom:14px;
-
-backdrop-filter:blur(8px);
+    backdrop-filter:blur(12px);
 
 }
 
 
 .card-title{
 
-font-family:'Syne',sans-serif;
+    display:flex;
 
-font-size:15px;
+    align-items:center;
 
-font-weight:700;
+    gap:10px;
 
-margin-bottom:14px;
+    margin-bottom:15px;
 
-display:flex;
+    font-family:'Syne',sans-serif;
 
-align-items:center;
-
-gap:8px;
+    font-weight:700;
 
 }
 
 
 .icon{
 
-width:28px;
+    width:30px;
 
-height:28px;
+    height:30px;
 
-background:var(--glass2);
+    display:flex;
 
-border-radius:8px;
+    align-items:center;
 
-display:flex;
+    justify-content:center;
 
-align-items:center;
+    border-radius:10px;
 
-justify-content:center;
-
-}
-
-
-
-/* INPUT */
-
-input,select,textarea{
-
-width:100%;
-
-padding:12px 14px;
-
-border-radius:var(--radius-sm);
-
-border:1px solid var(--border);
-
-background:rgba(0,0,0,0.25);
-
-color:white;
-
-font-size:14px;
-
-outline:none;
+    background:var(--glass2);
 
 }
-
-
-input:focus,select:focus,textarea:focus{
-
-border-color:var(--accent);
-
-}
-
-
-
-/* BOUTON */
-
-.btn{
-
-width:100%;
-
-padding:12px;
-
-border-radius:var(--radius-sm);
-
-border:none;
-
-background:linear-gradient(135deg,var(--accent),var(--accent2));
-
-color:white;
-
-font-weight:700;
-
-font-size:14px;
-
-margin-top:10px;
-
-cursor:pointer;
-
-}
-
-
-
-/* COULEURS */
-
-.swatches{
-
-display:flex;
-
-gap:8px;
-
-flex-wrap:wrap;
-
-}
-
-
-.swatch{
-
-width:36px;
-
-height:36px;
-
-border-radius:10px;
-
-cursor:pointer;
-
-border:2px solid transparent;
-
-}
-
-
-.swatch.selected{
-
-border-color:white;
-
-transform:scale(1.12);
-
-}
-
-
-
-/* TACHES */
-
-.task{
-
-display:flex;
-
-align-items:center;
-
-gap:10px;
-
-background:rgba(0,0,0,0.2);
-
-border:1px solid var(--border);
-
-padding:11px;
-
-border-radius:var(--radius-sm);
-
-margin-top:8px;
-
-}
-
-
-.task-text{
-
-flex:1;
-
-font-size:14px;
-
-}
-
-
-.delete{
-
-cursor:pointer;
-
-font-size:18px;
-
-}
-
-
-
-/* STATISTIQUES */
-
-.stat-row{
-
-display:flex;
-
-gap:10px;
-
-margin-bottom:14px;
-
-}
-
-
-.stat-box{
-
-flex:1;
-
-background:var(--glass);
-
-border:1px solid var(--border);
-
-border-radius:var(--radius-sm);
-
-padding:12px;
-
-text-align:center;
-
-}
-
-
-.stat-box .n{
-
-font-size:22px;
-
-font-weight:800;
-
-color:var(--accent);
-
-}
-
-
-.stat-box .l{
-
-font-size:11px;
-
-color:var(--muted);
-
-}
-
-
-
-/* IA */
-
-.ia-page-inner{
-
-display:flex;
-
-flex-direction:column;
-
-height:calc(100vh - 170px);
-
-}
-
-
-#chatContainer{
-
-flex:1;
-
-overflow-y:auto;
-
-display:flex;
-
-flex-direction:column;
-
-gap:8px;
-
-padding:10px 4px;
-
-}
-
-
-.message{
-
-max-width:78%;
-
-padding:11px 14px;
-
-border-radius:16px;
-
-font-size:14px;
-
-}
-
-
-.userMsg{
-
-background:linear-gradient(135deg,var(--accent),var(--accent2));
-
-align-self:flex-end;
-
-}
-
-
-.iaMsg{
-
-background:var(--glass2);
-
-border:1px solid var(--border);
-
-align-self:flex-start;
-
-}
-
-
-#iaInputArea{
-
-display:flex;
-
-gap:8px;
-
-background:var(--glass);
-
-border:1px solid var(--border);
-
-border-radius:20px;
-
-padding:8px;
-
-}
-
-
-#iaInput{
-
-background:transparent;
-
-border:none;
-
-flex:1;
-
-}
-
-
-/* FOOTER */
-
-footer{
-
-padding:8px 16px;
-
-font-size:11px;
-
-text-align:right;
-
-color:var(--muted);
-
-  }
-</style>
-
-</head>
-
-<body>
-
-<div class="orb orb1"></div>
-<div class="orb orb2"></div>
-
-
-<header>
-
-<div class="logo-dot">⚡</div>
-
-<h1>Daily Life <span>Ultra</span> IA</h1>
-
-<div id="time">00:00:00</div>
-
-</header>
-
-
-
-<div id="topNav">
-
-<div class="navBox active" onclick="showPage('home',this)">🏠 Accueil</div>
-
-<div class="navBox" onclick="showPage('ia',this)">🤖 IA</div>
-
-<div class="navBox" onclick="showPage('promo',this)">🎁 Promo</div>
-
-</div>
-
-
-
-<div id="home" class="page active">
-
-
-<div class="stat-row">
-
-<div class="stat-box">
-<div class="n" id="statTotal">0</div>
-<div class="l">Tâches</div>
-</div>
-
-
-<div class="stat-box">
-<div class="n" id="statDone">0</div>
-<div class="l">Terminées</div>
-</div>
-
-
-<div class="stat-box">
-<div class="n" id="statLeft">0</div>
-<div class="l">Restantes</div>
-</div>
-
-</div>
-
-
-
-<div class="card">
-
-<div class="card-title">
-<div class="icon">🎨</div>
-Thème
-</div>
-
-
-<div class="swatches">
-
-<div class="swatch selected" data-color="#10b981" style="background:#10b981"></div>
-
-<div class="swatch" data-color="#3b82f6" style="background:#3b82f6"></div>
-
-<div class="swatch" data-color="#a855f7" style="background:#a855f7"></div>
-
-<div class="swatch" data-color="#ec4899" style="background:#ec4899"></div>
-
-</div>
-
-</div>
-
-
-
-<div class="card">
-
-<div class="card-title">
-<div class="icon">🌍</div>
-Langue
-</div>
-
-
-<select id="languageSelect">
-
-<option value="fr">🇫🇷 Français</option>
-
-<option value="en">🇬🇧 English</option>
-
-<option value="es">🇪🇸 Español</option>
-
-<option value="de">🇩🇪 Deutsch</option>
-
-<option value="zh">🇨🇳 中文</option>
-
-</select>
-
-</div>
-
-
-
-<div class="card">
-
-<div class="card-title">
-
-<div class="icon">✅</div>
-
-Tâches du jour
-
-</div>
-
-
-<input id="taskInput" placeholder="Ajouter une tâche...">
-
-
-<button class="btn" onclick="addTask()">
-Ajouter
-</button>
-
-
-<div id="taskList"></div>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-<div id="ia" class="page">
-
-
-<div class="ia-page-inner">
-
-
-<div id="chatContainer">
-
-<div class="message iaMsg">
-
-Salut 👋 Je suis ton IA perso !
-
-</div>
-
-
-</div>
-
-
-<div id="iaInputArea">
-
-
-<textarea id="iaInput" placeholder="Écris un message..."></textarea>
-
-
-<button class="btn" onclick="askIA()">
-Envoyer
-</button>
-
-
-</div>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-<div id="promo" class="page">
-
-
-<div class="card">
-
-
-<div class="card-title">
-
-🎁 Promo
-
-</div>
-
-
-<input placeholder="Entre ton code promo">
-
-
-<button class="btn">
-
-Valider
-
-</button>
-
-
-</div>
-
-
-</div>
-
-
-
-<footer>
-
-© 2026 Daily Life Ultra IA ⚡
-
-</footer>
-
-
-
-<script>
-
-function tick(){
-
-let d=new Date();
-
-document.getElementById("time").textContent=d.toLocaleTimeString();
-
-}
-
-setInterval(tick,1000);
-
-tick();
-
-
-
-function showPage(id,el){
-
-document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-
-document.getElementById(id).classList.add("active");
-
-
-document.querySelectorAll(".navBox").forEach(n=>n.classList.remove("active"));
-
-el.classList.add("active");
-
-}
-
-
-
-
-
-let tasks=JSON.parse(localStorage.getItem("tasks")||"[]");
-
-
-
-function save(){
-
-localStorage.setItem("tasks",JSON.stringify(tasks));
-
-}
-
-
-
-function render(){
-
-let list=document.getElementById("taskList");
-
-list.innerHTML="";
-
-
-tasks.forEach((t,i)=>{
-
-
-let div=document.createElement("div");
-
-div.className="task";
-
-
-div.innerHTML=`
-
-<span class="task-text">${t}</span>
-
-<span class="delete" onclick="removeTask(${i})">🗑️</span>
-
-`;
-
-
-list.appendChild(div);
-
-
-});
-
-
-document.getElementById("statTotal").textContent=tasks.length;
-
-}
-
-
-
-function addTask(){
-
-let input=document.getElementById("taskInput");
-
-if(input.value.trim()=="") return;
-
-
-tasks.push(input.value);
-
-
-input.value="";
-
-
-save();
-
-render();
-
-}
-
-
-
-function removeTask(i){
-
-tasks.splice(i,1);
-
-save();
-
-render();
-
-}
-
-
-
-render();
-
-
-
-
-
-document.querySelectorAll(".swatch").forEach(s=>{
-
-s.onclick=()=>{
-
-document.documentElement.style.setProperty("--accent",s.dataset.color);
-
-};
-
-});
-
-</script>
-
-</body>
-
-</html>
