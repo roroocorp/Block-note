@@ -4,6 +4,7 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Daily Life Ultra IA</title>
@@ -19,225 +20,231 @@ padding:0;
 }
 
 :root{
+
 --accent:#10b981;
 --accent2:#059669;
+
 --bg1:#0a1628;
 --bg2:#0f2040;
---glass:rgba(255,255,255,.07);
---glass2:rgba(255,255,255,.13);
---border:rgba(255,255,255,.1);
+
+--glass:rgba(255,255,255,0.07);
+--glass2:rgba(255,255,255,0.13);
+
+--border:rgba(255,255,255,0.1);
+
 --text:#f0fdf4;
---muted:rgba(255,255,255,.5);
+--muted:rgba(255,255,255,0.5);
+
 --radius:18px;
 --radius-sm:12px;
+
 }
 
 
 body{
+
 min-height:100vh;
+
 background:var(--bg1);
+
 color:var(--text);
+
 font-family:'DM Sans',sans-serif;
+
 display:flex;
+
 flex-direction:column;
+
 overflow-x:hidden;
+
 }
 
 
-/* FONDS */
+
+/* FOND */
 
 .orb{
+
 position:fixed;
+
 border-radius:50%;
+
 filter:blur(80px);
-opacity:.18;
+
+opacity:0.18;
+
 pointer-events:none;
+
 z-index:0;
+
 }
+
 
 .orb1{
+
 width:340px;
+
 height:340px;
+
 top:-80px;
+
 right:-60px;
+
 background:var(--accent);
+
 }
 
+
 .orb2{
+
 width:280px;
+
 height:280px;
+
 bottom:60px;
+
 left:-80px;
+
 background:var(--accent2);
+
 }
+
 
 
 /* HEADER */
 
 header{
+
 position:relative;
+
 z-index:10;
+
 display:flex;
+
 align-items:center;
+
 gap:10px;
+
 padding:16px 18px 12px;
+
 border-bottom:1px solid var(--border);
+
 backdrop-filter:blur(12px);
+
 }
+
 
 .logo-dot{
+
 width:34px;
+
 height:34px;
+
 border-radius:10px;
+
 background:linear-gradient(135deg,var(--accent),var(--accent2));
+
 display:flex;
+
 align-items:center;
+
 justify-content:center;
+
 font-size:17px;
+
 }
+
 
 header h1{
+
 font-family:'Syne',sans-serif;
+
 font-size:17px;
+
 font-weight:800;
+
+letter-spacing:-0.3px;
+
 }
 
+
 header h1 span{
+
 color:var(--accent);
+
 }
 
 
 #time{
+
 margin-left:auto;
+
 font-size:13px;
+
 color:var(--muted);
+
 background:var(--glass);
+
 padding:5px 12px;
+
 border-radius:20px;
+
 border:1px solid var(--border);
+
 }
 
 
-/* NAV */
+
+/* NAVIGATION */
 
 #topNav{
+
 position:relative;
+
 z-index:10;
+
 display:flex;
+
 gap:8px;
+
 padding:12px 14px;
+
 }
 
+
 .navBox{
+
 flex:1;
+
 padding:11px 0;
+
 background:var(--glass);
+
 border:1px solid var(--border);
-border-radius:12px;
+
+border-radius:var(--radius-sm);
+
 text-align:center;
+
 font-size:14px;
+
 cursor:pointer;
+
 color:var(--muted);
+
+transition:.2s;
+
+}
+
+
+.navBox:hover{
+
+background:var(--glass2);
+
 }
 
 
 .navBox.active{
-background:linear-gradient(135deg,var(--accent),var(--accent2));
-color:white;
-font-weight:700;
-}
-
-
-/* PAGES */
-
-.page{
-display:none;
-flex-direction:column;
-padding:14px;
-position:relative;
-z-index:5;
-flex:1;
-}
-
-
-.page.active{
-display:flex;
-}
-
-
-/* CARTES */
-
-.card{
-background:var(--glass);
-border:1px solid var(--border);
-border-radius:var(--radius);
-padding:18px;
-margin-bottom:14px;
-backdrop-filter:blur(8px);
-}
-
-
-.card-title{
-font-family:'Syne',sans-serif;
-font-size:15px;
-font-weight:700;
-margin-bottom:14px;
-display:flex;
-align-items:center;
-gap:8px;
-}
-
-
-.icon{
-width:28px;
-height:28px;
-background:var(--glass2);
-border-radius:8px;
-display:flex;
-align-items:center;
-justify-content:center;
-}
-
-
-input:not([type=file]):not([type=range]),select{
-
-width:100%;
-
-padding:12px 14px;
-
-border-radius:var(--radius-sm);
-
-border:1px solid var(--border);
-
-background:rgba(0,0,0,.25);
-
-color:var(--text);
-
-font-size:14px;
-
-outline:none;
-
-}
-
-
-input:focus,select:focus{
-
-border-color:var(--accent);
-
-}
-
-
-/* BOUTONS */
-
-.btn{
-
-width:100%;
-
-padding:12px;
-
-border-radius:var(--radius-sm);
-
-border:none;
 
 background:linear-gradient(135deg,var(--accent),var(--accent2));
 
@@ -245,323 +252,4 @@ color:white;
 
 font-weight:700;
 
-font-size:14px;
-
-cursor:pointer;
-
-margin-top:10px;
-
 }
-
-
-.btn:hover{
-
-opacity:.85;
-
-}
-
-
-
-/* COULEURS */
-
-.swatches{
-
-display:flex;
-
-gap:8px;
-
-flex-wrap:wrap;
-
-}
-
-
-.swatch{
-
-width:36px;
-
-height:36px;
-
-border-radius:10px;
-
-cursor:pointer;
-
-border:2px solid transparent;
-
-}
-
-
-.swatch.selected{
-
-border-color:white;
-
-transform:scale(1.1);
-
-}
-
-
-
-
-/* TACHES */
-
-.task{
-
-display:flex;
-
-align-items:center;
-
-gap:10px;
-
-background:rgba(0,0,0,.2);
-
-border:1px solid var(--border);
-
-padding:11px 13px;
-
-border-radius:var(--radius-sm);
-
-margin-top:8px;
-
-}
-
-
-.task-check{
-
-width:20px;
-
-height:20px;
-
-border-radius:6px;
-
-border:2px solid var(--border);
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-cursor:pointer;
-
-}
-
-
-.task.done .task-text{
-
-text-decoration:line-through;
-
-opacity:.4;
-
-}
-
-
-.task-text{
-
-flex:1;
-
-font-size:14px;
-
-}
-
-
-.task-del{
-
-cursor:pointer;
-
-font-size:18px;
-
-opacity:.7;
-
-}
-
-
-
-
-/* STATS */
-
-.stat-row{
-
-display:flex;
-
-gap:10px;
-
-margin-bottom:14px;
-
-}
-
-
-.stat-box{
-
-flex:1;
-
-background:var(--glass);
-
-border:1px solid var(--border);
-
-border-radius:var(--radius-sm);
-
-padding:12px;
-
-text-align:center;
-
-}
-
-
-.stat-box .n{
-
-font-size:22px;
-
-font-weight:800;
-
-color:var(--accent);
-
-}
-
-
-.stat-box .l{
-
-font-size:11px;
-
-color:var(--muted);
-
-}
-
-
-
-
-
-/* CHAT IA */
-
-#chatContainer{
-
-flex:1;
-
-overflow-y:auto;
-
-display:flex;
-
-flex-direction:column;
-
-gap:8px;
-
-padding:10px 4px;
-
-}
-
-
-.message{
-
-max-width:78%;
-
-padding:11px 14px;
-
-border-radius:16px;
-
-font-size:14px;
-
-}
-
-
-.userMsg{
-
-background:linear-gradient(135deg,var(--accent),var(--accent2));
-
-align-self:flex-end;
-
-color:white;
-
-}
-
-
-.iaMsg{
-
-background:var(--glass2);
-
-border:1px solid var(--border);
-
-align-self:flex-start;
-
-}
-
-
-
-
-
-/* BARRE IA */
-
-#iaInputArea{
-
-display:flex;
-
-gap:8px;
-
-background:var(--glass);
-
-border:1px solid var(--border);
-
-border-radius:20px;
-
-padding:8px;
-
-}
-
-
-#iaInput{
-
-flex:1;
-
-background:transparent;
-
-border:none;
-
-color:white;
-
-outline:none;
-
-resize:none;
-
-}
-
-
-
-.iconBtn{
-
-width:38px;
-
-height:38px;
-
-border-radius:50%;
-
-border:none;
-
-cursor:pointer;
-
-}
-
-
-.sendBtn{
-
-background:linear-gradient(135deg,var(--accent),var(--accent2));
-
-}
-
-
-
-
-/* FOOTER */
-
-footer{
-
-padding:8px 16px;
-
-font-size:11px;
-
-text-align:right;
-
-color:var(--muted);
-
-border-top:1px solid var(--border);
-
-}
-
-
-/* ⬇️ SUITE PARTIE 3 ⬇️ */
