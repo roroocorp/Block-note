@@ -1,596 +1,202 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Daily Life Ultra IA</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+
 <style>
 
-/* TON CSS DU DESIGN ICI */
-/* Garde tout ton style actuel */
-
-</style>
-
-</head>
-
-<body>
-
-
-<div class="orb orb1"></div>
-<div class="orb orb2"></div>
-
-
-<header>
-
-<div class="logo-dot">⚡</div>
-
-<h1>Daily Life <span>Ultra</span> IA</h1>
-
-<div id="time">00:00:00</div>
-
-</header>
-
-
-<div id="topNav">
-
-<div class="navBox active" onclick="showPage('home',this)">
-🏠 Accueil
-</div>
-
-<div class="navBox" onclick="showPage('ia',this)">
-🤖 IA
-</div>
-
-<div class="navBox" onclick="showPage('promo',this)">
-🎁 Promo
-</div>
-
-</div>
-
-
-
-<!-- ACCUEIL -->
-
-<div id="home" class="page active">
-
-
-<div class="stat-row">
-
-<div class="stat-box">
-<div class="n" id="statTotal">0</div>
-<div class="l" id="txtTasks">Tâches</div>
-</div>
-
-
-<div class="stat-box">
-<div class="n" id="statDone">0</div>
-<div class="l" id="txtDone">Terminées</div>
-</div>
-
-
-<div class="stat-box">
-<div class="n" id="statLeft">0</div>
-<div class="l" id="txtLeft">Restantes</div>
-</div>
-
-</div>
-
-
-
-<div class="card">
-
-<div class="card-title">
-<div class="icon">🌍</div>
-Langue
-</div>
-
-
-<select id="languageSelect">
-
-<option value="fr">🇫🇷 Français</option>
-
-<option value="en">🇬🇧 English</option>
-
-<option value="es">🇪🇸 Español</option>
-
-<option value="de">🇩🇪 Deutsch</option>
-
-<option value="zh">🇨🇳 中文</option>
-
-</select>
-
-
-</div>
-
-
-
-<div class="card">
-
-<div class="card-title">
-<div class="icon">✅</div>
-
-<span id="lblTasks">
-Tâches du jour
-</span>
-
-</div>
-
-
-<div style="display:flex;gap:8px">
-
-<input 
-id="taskInput"
-placeholder="Ajouter une tâche..."
->
-
-
-<button class="btn" onclick="addTask()">
-+
-</button>
-
-
-</div>
-
-
-<div id="taskList"></div>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-<!-- IA -->
-
-<div id="ia" class="page">
-
-
-<div id="chatContainer">
-
-
-<div class="message iaMsg">
-
-Salut 👋 Je suis ton IA perso !
-
-</div>
-
-
-</div>
-
-
-
-<div id="iaInputArea">
-
-
-<textarea 
-id="iaInput"
-placeholder="Écris un message..."
-></textarea>
-
-
-<button class="iconBtn sendBtn" onclick="askIA()">
-
-➤
-
-</button>
-
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-
-<!-- PROMO -->
-
-<div id="promo" class="page">
-
-
-<div class="card">
-
-
-<div class="card-title">
-
-🎁 
-<span id="lblPromo">
-Valider un code
-</span>
-
-</div>
-
-
-<input id="promoInput" placeholder="Entre ton code promo...">
-
-
-<button class="btn" onclick="validatePromo()">
-
-Valider
-
-</button>
-
-
-<div id="promoResult"></div>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-<footer>
-
-© 2026 Daily Life Ultra IA ⚡
-
-</footer>
-
-
-
-
-<script>
-
-/* HORLOGE */
-
-function tick(){
-
-let d=new Date();
-
-document.getElementById("time").textContent =
-d.toLocaleTimeString("fr-FR");
-
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
 }
 
-tick();
-
-setInterval(tick,1000);
-
-
-
-/* NAVIGATION */
-
-function showPage(id,el){
-
-document.querySelectorAll(".page")
-.forEach(p=>p.classList.remove("active"));
-
-document.getElementById(id).classList.add("active");
-
-
-document.querySelectorAll(".navBox")
-.forEach(b=>b.classList.remove("active"));
-
-el.classList.add("active");
-
+:root{
+--accent:#10b981;
+--accent2:#059669;
+--bg1:#0a1628;
+--bg2:#0f2040;
+--glass:rgba(255,255,255,.07);
+--glass2:rgba(255,255,255,.13);
+--border:rgba(255,255,255,.1);
+--text:#f0fdf4;
+--muted:rgba(255,255,255,.5);
+--radius:18px;
+--radius-sm:12px;
 }
 
 
-
-
-/* LANGUES */
-
-const T={
-
-fr:{
-task:"Ajouter une tâche...",
-write:"Écris un message...",
-tasks:"Tâches du jour",
-promo:"Valider un code"
-},
-
-
-en:{
-task:"Add a task...",
-write:"Write a message...",
-tasks:"Today's tasks",
-promo:"Validate code"
-},
-
-
-es:{
-task:"Añadir tarea...",
-write:"Escribe un mensaje...",
-tasks:"Tareas del día",
-promo:"Validar código"
-},
-
-
-de:{
-task:"Aufgabe hinzufügen...",
-write:"Nachricht schreiben...",
-tasks:"Heutige Aufgaben",
-promo:"Code prüfen"
-},
-
-
-zh:{
-task:"添加任务...",
-write:"输入消息...",
-tasks:"今日任务",
-promo:"验证代码"
+body{
+min-height:100vh;
+background:var(--bg1);
+color:var(--text);
+font-family:'DM Sans',sans-serif;
+display:flex;
+flex-direction:column;
+overflow-x:hidden;
 }
 
 
-};
+/* FONDS */
 
+.orb{
+position:fixed;
+border-radius:50%;
+filter:blur(80px);
+opacity:.18;
+pointer-events:none;
+z-index:0;
+}
 
+.orb1{
+width:340px;
+height:340px;
+top:-80px;
+right:-60px;
+background:var(--accent);
+}
 
-document.getElementById("languageSelect")
-.addEventListener("change",function(){
-
-
-let l=this.value;
-
-
-document.getElementById("taskInput")
-.placeholder=T[l].task;
-
-
-document.getElementById("iaInput")
-.placeholder=T[l].write;
-
-
-document.getElementById("lblTasks")
-.textContent=T[l].tasks;
-
-
-document.getElementById("lblPromo")
-.textContent=T[l].promo;
-
-
-});
-
-
-
-
-
-/* NOTES SAUVEGARDÉES */
-
-let tasks=
-JSON.parse(localStorage.getItem("tasks") || "[]");
-
-
-
-function saveTasks(){
-
-localStorage.setItem(
-"tasks",
-JSON.stringify(tasks)
-);
-
+.orb2{
+width:280px;
+height:280px;
+bottom:60px;
+left:-80px;
+background:var(--accent2);
 }
 
 
+/* HEADER */
 
-
-function renderTasks(){
-
-let list=document.getElementById("taskList");
-
-
-if(tasks.length===0){
-
-list.innerHTML=
-"<p>Aucune tâche 🎉</p>";
-
+header{
+position:relative;
+z-index:10;
+display:flex;
+align-items:center;
+gap:10px;
+padding:16px 18px 12px;
+border-bottom:1px solid var(--border);
+backdrop-filter:blur(12px);
 }
 
-else{
+.logo-dot{
+width:34px;
+height:34px;
+border-radius:10px;
+background:linear-gradient(135deg,var(--accent),var(--accent2));
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:17px;
+}
 
+header h1{
+font-family:'Syne',sans-serif;
+font-size:17px;
+font-weight:800;
+}
 
-list.innerHTML=tasks.map((t,i)=>`
-
-
-<div class="task">
-
-
-<div onclick="toggleTask(${i})">
-
-${t.done ? "✅":"⬜"}
-
-</div>
-
-
-<div class="task-text">
-
-${t.text}
-
-</div>
-
-
-<div 
-class="task-del"
-onclick="delTask(${i})">
-
-🗑️
-
-</div>
-
-
-</div>
-
-
-`).join("");
-
+header h1 span{
+color:var(--accent);
 }
 
 
-
-let done=tasks.filter(t=>t.done).length;
-
-
-document.getElementById("statTotal")
-.textContent=tasks.length;
-
-
-document.getElementById("statDone")
-.textContent=done;
-
-
-document.getElementById("statLeft")
-.textContent=tasks.length-done;
-
-
+#time{
+margin-left:auto;
+font-size:13px;
+color:var(--muted);
+background:var(--glass);
+padding:5px 12px;
+border-radius:20px;
+border:1px solid var(--border);
 }
 
 
+/* NAV */
 
-function addTask(){
+#topNav{
+position:relative;
+z-index:10;
+display:flex;
+gap:8px;
+padding:12px 14px;
+}
 
-let input=document.getElementById("taskInput");
-
-
-if(input.value.trim()=="") return;
-
-
-tasks.unshift({
-
-text:input.value,
-
-done:false
-
-});
-
-
-input.value="";
-
-
-saveTasks();
-
-renderTasks();
-
+.navBox{
+flex:1;
+padding:11px 0;
+background:var(--glass);
+border:1px solid var(--border);
+border-radius:12px;
+text-align:center;
+font-size:14px;
+cursor:pointer;
+color:var(--muted);
 }
 
 
-
-function delTask(i){
-
-tasks.splice(i,1);
-
-saveTasks();
-
-renderTasks();
-
+.navBox.active{
+background:linear-gradient(135deg,var(--accent),var(--accent2));
+color:white;
+font-weight:700;
 }
 
 
+/* PAGES */
 
-function toggleTask(i){
-
-tasks[i].done=!tasks[i].done;
-
-saveTasks();
-
-renderTasks();
-
+.page{
+display:none;
+flex-direction:column;
+padding:14px;
+position:relative;
+z-index:5;
+flex:1;
 }
 
 
-renderTasks();
-
-
-
-
-
-/* IA SIMPLE */
-
-function askIA(){
-
-
-let input=document.getElementById("iaInput");
-
-let text=input.value.trim();
-
-
-if(!text)return;
-
-
-
-let chat=document.getElementById("chatContainer");
-
-
-
-chat.innerHTML+=`
-
-<div class="message userMsg">
-
-${text}
-
-</div>
-
-`;
-
-
-
-chat.innerHTML+=`
-
-<div class="message iaMsg">
-
-Je réfléchis 🤖... Je vais t'aider !
-
-</div>
-
-`;
-
-
-
-input.value="";
-
-
-chat.scrollTop=chat.scrollHeight;
-
-
+.page.active{
+display:flex;
 }
 
 
+/* CARTES */
 
-
-
-/* PROMO */
-
-function validatePromo(){
-
-let code=document.getElementById("promoInput").value;
-
-
-let result=document.getElementById("promoResult");
-
-
-if(code=="DAILY2026"){
-
-
-result.innerHTML="✅ Code valide !";
-
-
-}
-
-else{
-
-
-result.innerHTML="❌ Code incorrect";
-
-
+.card{
+background:var(--glass);
+border:1px solid var(--border);
+border-radius:var(--radius);
+padding:18px;
+margin-bottom:14px;
+backdrop-filter:blur(8px);
 }
 
 
+.card-title{
+font-family:'Syne',sans-serif;
+font-size:15px;
+font-weight:700;
+margin-bottom:14px;
+display:flex;
+align-items:center;
+gap:8px;
 }
 
 
-</script>
+.icon{
+width:28px;
+height:28px;
+background:var(--glass2);
+border-radius:8px;
+display:flex;
+align-items:center;
+justify-content:center;
+}
 
 
-</body>
-</html>
+/* ⬇️ SUITE PARTIE 2 ⬇️ */
