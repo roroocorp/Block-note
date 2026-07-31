@@ -635,3 +635,358 @@ text-align:right;
 color:var(--muted);
 
   }
+</style>
+
+</head>
+
+<body>
+
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+
+
+<header>
+
+<div class="logo-dot">⚡</div>
+
+<h1>Daily Life <span>Ultra</span> IA</h1>
+
+<div id="time">00:00:00</div>
+
+</header>
+
+
+
+<div id="topNav">
+
+<div class="navBox active" onclick="showPage('home',this)">🏠 Accueil</div>
+
+<div class="navBox" onclick="showPage('ia',this)">🤖 IA</div>
+
+<div class="navBox" onclick="showPage('promo',this)">🎁 Promo</div>
+
+</div>
+
+
+
+<div id="home" class="page active">
+
+
+<div class="stat-row">
+
+<div class="stat-box">
+<div class="n" id="statTotal">0</div>
+<div class="l">Tâches</div>
+</div>
+
+
+<div class="stat-box">
+<div class="n" id="statDone">0</div>
+<div class="l">Terminées</div>
+</div>
+
+
+<div class="stat-box">
+<div class="n" id="statLeft">0</div>
+<div class="l">Restantes</div>
+</div>
+
+</div>
+
+
+
+<div class="card">
+
+<div class="card-title">
+<div class="icon">🎨</div>
+Thème
+</div>
+
+
+<div class="swatches">
+
+<div class="swatch selected" data-color="#10b981" style="background:#10b981"></div>
+
+<div class="swatch" data-color="#3b82f6" style="background:#3b82f6"></div>
+
+<div class="swatch" data-color="#a855f7" style="background:#a855f7"></div>
+
+<div class="swatch" data-color="#ec4899" style="background:#ec4899"></div>
+
+</div>
+
+</div>
+
+
+
+<div class="card">
+
+<div class="card-title">
+<div class="icon">🌍</div>
+Langue
+</div>
+
+
+<select id="languageSelect">
+
+<option value="fr">🇫🇷 Français</option>
+
+<option value="en">🇬🇧 English</option>
+
+<option value="es">🇪🇸 Español</option>
+
+<option value="de">🇩🇪 Deutsch</option>
+
+<option value="zh">🇨🇳 中文</option>
+
+</select>
+
+</div>
+
+
+
+<div class="card">
+
+<div class="card-title">
+
+<div class="icon">✅</div>
+
+Tâches du jour
+
+</div>
+
+
+<input id="taskInput" placeholder="Ajouter une tâche...">
+
+
+<button class="btn" onclick="addTask()">
+Ajouter
+</button>
+
+
+<div id="taskList"></div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div id="ia" class="page">
+
+
+<div class="ia-page-inner">
+
+
+<div id="chatContainer">
+
+<div class="message iaMsg">
+
+Salut 👋 Je suis ton IA perso !
+
+</div>
+
+
+</div>
+
+
+<div id="iaInputArea">
+
+
+<textarea id="iaInput" placeholder="Écris un message..."></textarea>
+
+
+<button class="btn" onclick="askIA()">
+Envoyer
+</button>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div id="promo" class="page">
+
+
+<div class="card">
+
+
+<div class="card-title">
+
+🎁 Promo
+
+</div>
+
+
+<input placeholder="Entre ton code promo">
+
+
+<button class="btn">
+
+Valider
+
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+<footer>
+
+© 2026 Daily Life Ultra IA ⚡
+
+</footer>
+
+
+
+<script>
+
+function tick(){
+
+let d=new Date();
+
+document.getElementById("time").textContent=d.toLocaleTimeString();
+
+}
+
+setInterval(tick,1000);
+
+tick();
+
+
+
+function showPage(id,el){
+
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+
+document.getElementById(id).classList.add("active");
+
+
+document.querySelectorAll(".navBox").forEach(n=>n.classList.remove("active"));
+
+el.classList.add("active");
+
+}
+
+
+
+
+
+let tasks=JSON.parse(localStorage.getItem("tasks")||"[]");
+
+
+
+function save(){
+
+localStorage.setItem("tasks",JSON.stringify(tasks));
+
+}
+
+
+
+function render(){
+
+let list=document.getElementById("taskList");
+
+list.innerHTML="";
+
+
+tasks.forEach((t,i)=>{
+
+
+let div=document.createElement("div");
+
+div.className="task";
+
+
+div.innerHTML=`
+
+<span class="task-text">${t}</span>
+
+<span class="delete" onclick="removeTask(${i})">🗑️</span>
+
+`;
+
+
+list.appendChild(div);
+
+
+});
+
+
+document.getElementById("statTotal").textContent=tasks.length;
+
+}
+
+
+
+function addTask(){
+
+let input=document.getElementById("taskInput");
+
+if(input.value.trim()=="") return;
+
+
+tasks.push(input.value);
+
+
+input.value="";
+
+
+save();
+
+render();
+
+}
+
+
+
+function removeTask(i){
+
+tasks.splice(i,1);
+
+save();
+
+render();
+
+}
+
+
+
+render();
+
+
+
+
+
+document.querySelectorAll(".swatch").forEach(s=>{
+
+s.onclick=()=>{
+
+document.documentElement.style.setProperty("--accent",s.dataset.color);
+
+};
+
+});
+
+</script>
+
+</body>
+
+</html>
