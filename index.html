@@ -850,3 +850,417 @@ option{
     font-size:20px;
 
     }
+</style>
+</head>
+
+<body>
+
+
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+
+<header>
+
+    <div class="logo">⚡</div>
+
+    <h1>
+        Daily Life 
+        <span>Ultra IA</span>
+    </h1>
+
+    <div id="time">
+        00:00:00
+    </div>
+
+</header>
+
+
+
+
+<!-- =========================
+     NAVIGATION
+========================= -->
+
+
+<div id="topNav">
+
+    <div class="navBox active"
+    onclick="showPage('home',this)">
+        🏠 Accueil
+    </div>
+
+
+    <div class="navBox"
+    onclick="showPage('ia',this)">
+        🤖 IA
+    </div>
+
+
+    <div class="navBox"
+    onclick="showPage('promo',this)">
+        🎁 Promo
+    </div>
+
+
+</div>
+
+
+
+
+
+<!-- =========================
+     PAGE ACCUEIL
+========================= -->
+
+
+<section id="home" class="page active">
+
+
+
+<!-- STATISTIQUES -->
+
+
+<div class="stat-row">
+
+
+<div class="stat-box">
+
+<div class="number" id="statTotal">
+0
+</div>
+
+<div class="label">
+Tâches
+</div>
+
+</div>
+
+
+
+<div class="stat-box">
+
+<div class="number" id="statDone">
+0
+</div>
+
+<div class="label">
+Terminées
+</div>
+
+</div>
+
+
+
+<div class="stat-box">
+
+<div class="number" id="statLeft">
+0
+</div>
+
+<div class="label">
+Restantes
+</div>
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<!-- THEME -->
+
+
+<div class="card">
+
+
+<div class="card-title">
+
+<div class="icon">
+🎨
+</div>
+
+Thème
+
+</div>
+
+
+
+<div class="swatches">
+
+
+<div class="swatch selected"
+data-color="#10b981"
+style="background:#10b981">
+</div>
+
+
+<div class="swatch"
+data-color="#3b82f6"
+style="background:#3b82f6">
+</div>
+
+
+<div class="swatch"
+data-color="#a855f7"
+style="background:#a855f7">
+</div>
+
+
+<div class="swatch"
+data-color="#f97316"
+style="background:#f97316">
+</div>
+
+
+<div class="swatch"
+data-color="#ec4899"
+style="background:#ec4899">
+</div>
+
+
+<div class="swatch"
+data-color="#ef4444"
+style="background:#ef4444">
+</div>
+
+
+<div class="swatch"
+data-color="#eab308"
+style="background:#eab308">
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<!-- LANGUE -->
+
+
+<div class="card">
+
+
+<div class="card-title">
+
+<div class="icon">
+🌍
+</div>
+
+Langue
+
+</div>
+
+
+
+<select id="languageSelect">
+
+<option value="fr">
+🇫🇷 Français
+</option>
+
+
+<option value="en">
+🇬🇧 English
+</option>
+
+
+<option value="es">
+🇪🇸 Español
+</option>
+
+
+<option value="de">
+🇩🇪 Deutsch
+</option>
+
+
+</select>
+
+
+</div>
+
+
+
+
+
+
+<!-- TACHES -->
+
+
+<div class="card">
+
+
+<div class="card-title">
+
+<div class="icon">
+✅
+</div>
+
+Tâches du jour
+
+</div>
+
+
+
+<div style="display:flex;gap:8px;">
+
+
+<input 
+id="taskInput"
+placeholder="Ajouter une tâche..."
+>
+
+
+<button 
+class="btn"
+onclick="addTask()"
+style="width:auto;margin:0;padding:12px 18px;">
++
+</button>
+
+
+</div>
+
+
+
+<div id="taskList">
+
+</div>
+
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+<!-- =========================
+     PAGE IA
+========================= -->
+
+
+<section id="ia" class="page">
+
+
+<div class="ia-page-inner">
+
+
+
+<div class="chips">
+
+
+<div class="chip"
+onclick="useChip(this)">
+💡 Une idée de repas ?
+</div>
+
+
+<div class="chip"
+onclick="useChip(this)">
+📅 Organise ma journée
+</div>
+
+
+<div class="chip"
+onclick="useChip(this)">
+😴 Conseils sommeil
+</div>
+
+
+<div class="chip"
+onclick="useChip(this)">
+💪 Motivation
+</div>
+
+
+</div>
+
+
+
+
+<div id="chatContainer">
+
+
+<div class="message iaMsg">
+
+Salut 👋  
+Je suis ton IA personnelle.
+Pose-moi une question !
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div id="iaInputArea">
+
+
+<button class="iconBtn attachBtn"
+onclick="document.getElementById('fileInput').click()">
++
+</button>
+
+
+
+<textarea 
+id="iaInput"
+placeholder="Écris un message..."
+rows="1">
+</textarea>
+
+
+
+<button 
+class="iconBtn sendBtn"
+onclick="askIA()">
+
+➤
+
+</button>
+
+
+
+</div>
+
+
+
+<input 
+type="file"
+id="fileInput"
+accept="image/*"
+hidden
+>
+
+
+
+</div>
+
+
+</section>
