@@ -8,12 +8,16 @@
 
 <title>Daily Life Ultra IA</title>
 
-<link rel="stylesheet" href="style.css">
-
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 
-</head>
+<style>
 
+/* GARDE TON STYLE ORIGINAL ICI */
+/* On garde exactement ton CSS de départ */
+
+</style>
+
+</head>
 
 <body>
 
@@ -23,7 +27,7 @@
 
 <header>
 
-<div class="logo">
+<div class="logo-dot">
 ⚡
 </div>
 
@@ -38,405 +42,21 @@ Daily Life <span>Ultra</span> IA
 </header>
 
 
+<div id="topNav">
 
-<nav>
-
-<div class="nav active" onclick="openPage('home',this)">
+<div class="navBox active" onclick="showPage('home',this)">
 🏠 Accueil
 </div>
 
-
-<div class="nav" onclick="openPage('ia',this)">
+<div class="navBox" onclick="showPage('ia',this)">
 🤖 IA
 </div>
 
-
-<div class="nav" onclick="openPage('settings',this)">
-⚙️ Paramètres
+<div class="navBox" onclick="showPage('promo',this)">
+🎁 Promo
 </div>
-
-
-</nav>
-
-
-
-<!-- PAGE ACCUEIL -->
-
-<div id="home" class="page active">
-
-
-<div class="card">
-
-<div class="title">
-📝 Mes notes
-</div>
-
-
-<input id="noteInput" placeholder="Écris une note...">
-
-
-<button onclick="addNote()">
-💾 Enregistrer
-</button>
-
-
-<div id="noteList"></div>
-
 
 </div>
 
 
-
-<div class="card">
-
-<div class="title">
-🌍 Langue
-</div>
-
-
-<select id="language">
-
-<option value="fr">
-🇫🇷 Français
-</option>
-
-<option value="en">
-🇬🇧 English
-</option>
-
-<option value="es">
-🇪🇸 Español
-</option>
-
-<option value="de">
-🇩🇪 Deutsch
-</option>
-
-<option value="zh">
-🇨🇳 中文
-</option>
-
-
-</select>
-
-
-</div>
-
-
-
-<div class="card">
-
-<div class="title">
-🎨 Couleur du thème
-</div>
-
-
-<button onclick="changeTheme('#10b981','#059669')">
-🟢 Vert
-</button>
-
-<br><br>
-
-<button onclick="changeTheme('#3b82f6','#2563eb')">
-🔵 Bleu
-</button>
-
-<br><br>
-
-<button onclick="changeTheme('#a855f7','#7c3aed')">
-🟣 Violet
-</button>
-
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-<!-- PAGE IA -->
-
-<div id="ia" class="page">
-
-
-<div class="card">
-
-<div class="title">
-🤖 Assistant IA
-</div>
-
-
-<div id="chat">
-
-🤖 Salut 👋 Je suis ton IA personnelle.
-
-</div>
-
-
-<br>
-
-
-<input id="iaInput" placeholder="Écris un message...">
-
-
-<button onclick="sendIA()">
-🚀 Envoyer
-</button>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-<!-- PAGE PARAMETRES -->
-
-<div id="settings" class="page">
-
-
-<div class="card">
-
-<div class="title">
-⚡ Informations
-</div>
-
-
-<p>
-Daily Life Ultra IA
-</p>
-
-
-<p>
-Tes notes restent sauvegardées automatiquement.
-</p>
-
-
-</div>
-
-
-</div>
-
-
-
-
-<script>
-
-
-// HORLOGE
-
-function clock(){
-
-let d=new Date();
-
-document.getElementById("time").innerHTML =
-d.toLocaleTimeString("fr-FR");
-
-}
-
-setInterval(clock,1000);
-clock();
-
-
-
-
-// NAVIGATION
-
-function openPage(id,element){
-
-document.querySelectorAll(".page").forEach(page=>{
-page.classList.remove("active");
-});
-
-
-document.getElementById(id).classList.add("active");
-
-
-document.querySelectorAll(".nav").forEach(nav=>{
-nav.classList.remove("active");
-});
-
-
-element.classList.add("active");
-
-}
-
-
-
-
-
-// NOTES
-
-let notes = JSON.parse(localStorage.getItem("notes")) || [];
-
-
-function showNotes(){
-
-let box=document.getElementById("noteList");
-
-box.innerHTML="";
-
-
-notes.forEach((note,index)=>{
-
-
-box.innerHTML += `
-
-<div class="note">
-
-<span>${note}</span>
-
-
-<button 
-style="width:auto;background:none;font-size:20px"
-onclick="deleteNote(${index})">
-
-🗑️
-
-</button>
-
-
-</div>
-
-`;
-
-});
-
-
-}
-
-
-
-function addNote(){
-
-let input=document.getElementById("noteInput");
-
-
-if(input.value.trim()==""){
-return;
-}
-
-
-notes.push(input.value);
-
-
-localStorage.setItem(
-"notes",
-JSON.stringify(notes)
-);
-
-
-input.value="";
-
-
-showNotes();
-
-}
-
-
-
-function deleteNote(index){
-
-notes.splice(index,1);
-
-
-localStorage.setItem(
-"notes",
-JSON.stringify(notes)
-);
-
-
-showNotes();
-
-}
-
-
-
-showNotes();
-
-
-
-
-
-// IA
-
-function sendIA(){
-
-
-let input=document.getElementById("iaInput");
-
-let chat=document.getElementById("chat");
-
-
-if(input.value.trim()==""){
-return;
-}
-
-
-chat.innerHTML +=
-"<br><br>👤 "+input.value;
-
-
-chat.innerHTML +=
-"<br>🤖 Je vais t'aider avec ça !";
-
-
-input.value="";
-
-}
-
-
-
-
-
-// CHANGER COULEUR
-
-function changeTheme(a,b){
-
-document.documentElement.style.setProperty(
-"--accent",
-a
-);
-
-document.documentElement.style.setProperty(
-"--accent2",
-b
-);
-
-localStorage.setItem("color1",a);
-localStorage.setItem("color2",b);
-
-}
-
-
-
-
-// CHARGER LA COULEUR
-
-let c1=localStorage.getItem("color1");
-let c2=localStorage.getItem("color2");
-
-
-if(c1 && c2){
-
-document.documentElement.style.setProperty("--accent",c1);
-
-document.documentElement.style.setProperty("--accent2",c2);
-
-}
-
-
-
-</script>
-
-
-</body>
-
-</html>
+<!-- SUITE PARTIE 2 ICI -->
