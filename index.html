@@ -1,19 +1,177 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Daily Life Ultra IA</title>
 
-<link rel="stylesheet" href="style.css">
-
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+}
+
+:root{
+--accent:#10b981;
+--accent2:#059669;
+--glass:rgba(255,255,255,.08);
+--border:rgba(255,255,255,.15);
+}
+
+body{
+min-height:100vh;
+background:linear-gradient(160deg,#071426,#10294d);
+color:white;
+font-family:'DM Sans',sans-serif;
+}
+
+.orb{
+position:fixed;
+border-radius:50%;
+filter:blur(80px);
+opacity:.25;
+z-index:-1;
+}
+
+.orb1{
+width:350px;
+height:350px;
+background:#10b981;
+top:-100px;
+right:-100px;
+}
+
+.orb2{
+width:300px;
+height:300px;
+background:#059669;
+bottom:-80px;
+left:-80px;
+}
+
+
+header{
+display:flex;
+align-items:center;
+gap:12px;
+padding:18px;
+border-bottom:1px solid var(--border);
+}
+
+.logo{
+width:40px;
+height:40px;
+border-radius:12px;
+background:linear-gradient(135deg,var(--accent),var(--accent2));
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+h1{
+font-size:18px;
+}
+
+h1 span{
+color:#10b981;
+}
+
+
+#time{
+margin-left:auto;
+background:var(--glass);
+padding:8px 12px;
+border-radius:20px;
+}
+
+
+nav{
+display:flex;
+gap:8px;
+padding:12px;
+}
+
+
+.nav{
+flex:1;
+padding:12px;
+text-align:center;
+background:var(--glass);
+border:1px solid var(--border);
+border-radius:14px;
+cursor:pointer;
+}
+
+
+.nav.active{
+background:linear-gradient(135deg,var(--accent),var(--accent2));
+}
+
+
+.page{
+display:none;
+padding:14px;
+}
+
+
+.page.active{
+display:block;
+}
+
+
+.card{
+background:var(--glass);
+border:1px solid var(--border);
+border-radius:18px;
+padding:18px;
+margin-bottom:15px;
+}
+
+
+.title{
+font-weight:bold;
+margin-bottom:12px;
+}
+
+
+input,select,textarea{
+
+width:100%;
+padding:13px;
+border-radius:12px;
+background:#0005;
+color:white;
+border:1px solid var(--border);
+margin-bottom:10px;
+
+}
+
+
+button{
+
+width:100%;
+padding:12px;
+border:0;
+border-radius:12px;
+background:linear-gradient(135deg,var(--accent),var(--accent2));
+color:white;
+font-weight:bold;
+
+}
+
+</style>
 
 </head>
 
+
 <body>
+
 
 <div class="orb orb1"></div>
 <div class="orb orb2"></div>
@@ -37,85 +195,25 @@ Daily Life <span>Ultra</span> IA
 
 
 
-<div id="menu">
+<nav>
 
-<div class="menu active" onclick="showPage('home',this)">
+<div class="nav active" onclick="openPage('home',this)">
 🏠 Accueil
 </div>
 
-<div class="menu" onclick="showPage('ia',this)">
+
+<div class="nav" onclick="openPage('ia',this)">
 🤖 IA
 </div>
 
-<div class="menu" onclick="showPage('settings',this)">
+
+<div class="nav" onclick="openPage('settings',this)">
 ⚙️ Paramètres
 </div>
 
-</div>
+
+</nav>
 
 
 
-<!-- PAGE ACCUEIL -->
-
-<div id="home" class="page active">
-
-
-<div class="card">
-
-<div class="title">
-📝 Mes notes
-</div>
-
-
-<input id="noteInput" placeholder="Écris une note...">
-
-
-<button onclick="addNote()">
-💾 Enregistrer
-</button>
-
-
-<div id="notesList"></div>
-
-
-</div>
-
-
-
-
-<div class="card">
-
-<div class="title">
-🌍 Langue
-</div>
-
-
-<select id="language">
-
-<option value="fr">
-🇫🇷 Français
-</option>
-
-<option value="en">
-🇬🇧 English
-</option>
-
-<option value="es">
-🇪🇸 Español
-</option>
-
-<option value="de">
-🇩🇪 Deutsch
-</option>
-
-<option value="zh">
-🇨🇳 中文
-</option>
-
-</select>
-
-
-</div>
-
-
-</div>
+<!-- ⬇️ COLLE LA PARTIE 2 JUSTE ICI ⬇️ -->
