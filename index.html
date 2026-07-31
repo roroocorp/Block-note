@@ -18,4 +18,227 @@
 <body>
 
 
-<!-- ⬇️ COLLE LA PARTIE 2 ICI ⬇️ -->
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+
+
+<header>
+
+<div class="logo-dot">⚡</div>
+
+<h1>Daily Life <span>Ultra</span> IA</h1>
+
+<div id="time">00:00:00</div>
+
+</header>
+
+
+<div id="topNav">
+
+<div class="navBox active" onclick="showPage('home',this)">
+🏠 Accueil
+</div>
+
+<div class="navBox" onclick="showPage('ia',this)">
+🤖 IA
+</div>
+
+<div class="navBox" onclick="showPage('promo',this)">
+🎁 Promo
+</div>
+
+</div>
+
+
+
+<!-- ACCUEIL -->
+
+<div id="home" class="page active">
+
+
+<div class="stat-row">
+
+<div class="stat-box">
+<div class="n" id="statTotal">0</div>
+<div class="l" id="txtTasks">Tâches</div>
+</div>
+
+
+<div class="stat-box">
+<div class="n" id="statDone">0</div>
+<div class="l" id="txtDone">Terminées</div>
+</div>
+
+
+<div class="stat-box">
+<div class="n" id="statLeft">0</div>
+<div class="l" id="txtLeft">Restantes</div>
+</div>
+
+</div>
+
+
+
+<div class="card">
+
+<div class="card-title">
+<div class="icon">🌍</div>
+Langue
+</div>
+
+
+<select id="languageSelect">
+
+<option value="fr">🇫🇷 Français</option>
+
+<option value="en">🇬🇧 English</option>
+
+<option value="es">🇪🇸 Español</option>
+
+<option value="de">🇩🇪 Deutsch</option>
+
+<option value="zh">🇨🇳 中文</option>
+
+</select>
+
+
+</div>
+
+
+
+<div class="card">
+
+<div class="card-title">
+<div class="icon">✅</div>
+
+<span id="lblTasks">
+Tâches du jour
+</span>
+
+</div>
+
+
+<div style="display:flex;gap:8px">
+
+<input 
+id="taskInput"
+placeholder="Ajouter une tâche..."
+>
+
+
+<button class="btn" onclick="addTask()">
++
+</button>
+
+
+</div>
+
+
+<div id="taskList"></div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<!-- IA -->
+
+<div id="ia" class="page">
+
+
+<div id="chatContainer">
+
+
+<div class="message iaMsg">
+
+Salut 👋 Je suis ton IA perso !
+
+</div>
+
+
+</div>
+
+
+
+<div id="iaInputArea">
+
+
+<textarea 
+id="iaInput"
+placeholder="Écris un message..."
+></textarea>
+
+
+<button class="iconBtn sendBtn" onclick="askIA()">
+
+➤
+
+</button>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+<!-- PROMO -->
+
+<div id="promo" class="page">
+
+
+<div class="card">
+
+
+<div class="card-title">
+
+🎁 
+<span id="lblPromo">
+Valider un code
+</span>
+
+</div>
+
+
+<input id="promoInput" placeholder="Entre ton code promo...">
+
+
+<button class="btn" onclick="validatePromo()">
+
+Valider
+
+</button>
+
+
+<div id="promoResult"></div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<footer>
+
+© 2026 Daily Life Ultra IA ⚡
+
+</footer>
+
+
+
+
+<!-- ⬇️ COLLE LA PARTIE 3 ICI ⬇️ -->
