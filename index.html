@@ -368,4 +368,205 @@ Les notes restent sauvegardées.
 
 
 
-<!-- ⬇️ COLLE LA PARTIE 3 JUSTE ICI ⬇️ -->
+
+<script>
+
+
+/* HORLOGE */
+
+function clock(){
+
+let d=new Date();
+
+document.getElementById("time").innerHTML=
+d.toLocaleTimeString("fr-FR");
+
+}
+
+setInterval(clock,1000);
+clock();
+
+
+
+/* NAVIGATION */
+
+function openPage(id,element){
+
+document.querySelectorAll(".page").forEach(p=>{
+p.classList.remove("active");
+});
+
+
+document.getElementById(id).classList.add("active");
+
+
+document.querySelectorAll(".nav").forEach(n=>{
+n.classList.remove("active");
+});
+
+
+element.classList.add("active");
+
+}
+
+
+
+/* NOTES SAUVEGARDEES */
+
+let notes=JSON.parse(localStorage.getItem("notes")) || [];
+
+
+function showNotes(){
+
+let box=document.getElementById("noteList");
+
+box.innerHTML="";
+
+
+notes.forEach((note,index)=>{
+
+
+box.innerHTML+=`
+
+<div style="
+background:#0005;
+padding:12px;
+border-radius:12px;
+margin-top:10px;
+display:flex;
+justify-content:space-between;
+">
+
+<span>${note}</span>
+
+<button style="width:auto;background:#ef4444"
+onclick="deleteNote(${index})">
+❌
+</button>
+
+</div>
+
+`;
+
+});
+
+
+}
+
+
+
+function addNote(){
+
+let input=document.getElementById("noteInput");
+
+
+if(input.value.trim()==""){
+return;
+}
+
+
+notes.push(input.value);
+
+
+localStorage.setItem(
+"notes",
+JSON.stringify(notes)
+);
+
+
+input.value="";
+
+
+showNotes();
+
+}
+
+
+
+function deleteNote(index){
+
+notes.splice(index,1);
+
+
+localStorage.setItem(
+"notes",
+JSON.stringify(notes)
+);
+
+
+showNotes();
+
+}
+
+
+
+showNotes();
+
+
+
+
+
+/* IA */
+
+function sendIA(){
+
+
+let input=document.getElementById("iaInput");
+
+let chat=document.getElementById("chat");
+
+
+if(input.value.trim()==""){
+return;
+}
+
+
+chat.innerHTML +=
+"<br><br>👤 "+input.value;
+
+
+chat.innerHTML +=
+"<br>🤖 Je vais t'aider avec ça !";
+
+
+input.value="";
+
+
+}
+
+
+
+
+
+/* CHANGER THEME */
+
+
+function changeTheme(a,b){
+
+
+document.documentElement.style.setProperty(
+"--accent",
+a
+);
+
+
+document.documentElement.style.setProperty(
+"--accent2",
+b
+);
+
+
+}
+
+
+
+
+/* FIN DU FICHIER */
+
+
+</script>
+
+
+</body>
+
+</html>
