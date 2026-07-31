@@ -291,4 +291,359 @@ onclick="askIA()">
 
 
 
-<!-- COLLE LA PARTIE 3 ICI -->
+<script>
+
+
+// HORLOGE
+
+function tick(){
+
+let d=new Date();
+
+document.getElementById("time").textContent =
+d.toLocaleTimeString("fr-FR");
+
+}
+
+tick();
+
+setInterval(tick,1000);
+
+
+
+
+
+// NAVIGATION
+
+function showPage(id,el){
+
+document.querySelectorAll(".page")
+.forEach(p=>p.classList.remove("active"));
+
+
+document.getElementById(id)
+.classList.add("active");
+
+
+document.querySelectorAll(".navBox")
+.forEach(b=>b.classList.remove("active"));
+
+
+el.classList.add("active");
+
+}
+
+
+
+
+
+
+// COULEURS (sauvegarde)
+
+const savedColor =
+localStorage.getItem("dlColor") || "#10b981";
+
+
+function applyColor(color){
+
+document.documentElement
+.style.setProperty("--accent",color);
+
+}
+
+
+
+document.querySelectorAll(".swatch")
+.forEach(s=>{
+
+
+if(s.dataset.color===savedColor){
+
+s.classList.add("selected");
+
+applyColor(savedColor);
+
+}
+
+
+s.onclick=()=>{
+
+
+document.querySelectorAll(".swatch")
+.forEach(x=>x.classList.remove("selected"));
+
+
+s.classList.add("selected");
+
+
+localStorage.setItem(
+"dlColor",
+s.dataset.color
+);
+
+
+applyColor(s.dataset.color);
+
+
+};
+
+
+});
+
+
+
+
+
+
+// NOTES
+
+let tasks =
+JSON.parse(localStorage.getItem("dlTasks")) || [];
+
+
+
+function saveTasks(){
+
+localStorage.setItem(
+"dlTasks",
+JSON.stringify(tasks)
+);
+
+}
+
+
+
+
+function renderTasks(){
+
+let list =
+document.getElementById("taskList");
+
+
+list.innerHTML="";
+
+
+tasks.forEach((t,i)=>{
+
+
+list.innerHTML += `
+
+<div class="task ${t.done?'done':''}">
+
+
+<div class="task-check"
+onclick="toggleTask(${i})">
+
+${t.done?'✓':''}
+
+</div>
+
+
+<div class="task-text">
+
+${t.text}
+
+</div>
+
+
+
+<div class="task-del"
+onclick="deleteTask(${i})">
+
+🗑️
+
+</div>
+
+
+</div>
+
+`;
+
+});
+
+
+
+document.getElementById("statTotal")
+.textContent=tasks.length;
+
+
+document.getElementById("statDone")
+.textContent=
+tasks.filter(t=>t.done).length;
+
+
+document.getElementById("statLeft")
+.textContent=
+tasks.filter(t=>!t.done).length;
+
+
+}
+
+
+
+function addTask(){
+
+
+let input =
+document.getElementById("taskInput");
+
+
+if(input.value.trim()=="")
+return;
+
+
+
+tasks.unshift({
+
+text:input.value,
+
+done:false
+
+});
+
+
+saveTasks();
+
+
+input.value="";
+
+
+renderTasks();
+
+
+}
+
+
+
+function toggleTask(i){
+
+tasks[i].done =
+!tasks[i].done;
+
+
+saveTasks();
+
+renderTasks();
+
+}
+
+
+
+function deleteTask(i){
+
+tasks.splice(i,1);
+
+
+saveTasks();
+
+renderTasks();
+
+
+}
+
+
+
+renderTasks();
+
+
+
+
+
+
+// IA SIMPLE
+
+
+function askIA(){
+
+
+let input =
+document.getElementById("iaInput");
+
+
+let chat =
+document.getElementById("chatContainer");
+
+
+if(input.value.trim()=="")
+return;
+
+
+
+chat.innerHTML += `
+
+<div class="message userMsg">
+
+${input.value}
+
+</div>
+
+
+<div class="message iaMsg">
+
+Je suis là pour t'aider 🤖
+
+</div>
+
+`;
+
+
+
+input.value="";
+
+
+chat.scrollTop=chat.scrollHeight;
+
+
+}
+
+
+
+
+
+// LANGUES
+
+document.getElementById("languageSelect")
+.addEventListener("change",function(){
+
+
+localStorage.setItem(
+"language",
+this.value
+);
+
+
+if(this.value==="zh"){
+
+document.getElementById("lblTasks")
+.textContent="今天的任务";
+
+
+}
+
+else if(this.value==="en"){
+
+document.getElementById("lblTasks")
+.textContent="Today's notes";
+
+
+}
+
+else{
+
+document.getElementById("lblTasks")
+.textContent="Notes du jour";
+
+
+}
+
+
+});
+
+
+
+
+</script>
+
+
+</body>
+</html>
