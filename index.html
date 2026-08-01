@@ -3,270 +3,334 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bloc Notes</title>
+<title>Daily Notes IA</title>
 
 <style>
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,sans-serif;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
 }
 
 body{
-    background:#f2f2f2;
+background:linear-gradient(135deg,#071b2d,#0d334b,#0e5d63);
+color:white;
+padding:20px;
 }
 
 header{
-    background:#4a6cf7;
-    color:white;
-    text-align:center;
-    padding:18px;
-    font-size:28px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+
+.logo{
+font-size:28px;
+font-weight:bold;
+color:#1dd1a1;
+}
+
+.time{
+background:rgba(255,255,255,.1);
+padding:10px 18px;
+border-radius:20px;
 }
 
 nav{
-    display:flex;
-    justify-content:center;
-    gap:10px;
-    background:#222;
-    padding:10px;
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:10px;
+margin-bottom:20px;
 }
 
 nav button{
-    padding:10px 18px;
-    border:none;
-    border-radius:8px;
-    cursor:pointer;
-    background:#444;
-    color:white;
-    transition:.2s;
+background:#24384d;
+border:none;
+color:white;
+padding:15px;
+border-radius:18px;
+font-size:16px;
+cursor:pointer;
+transition:.2s;
 }
 
-nav button:hover{
-    background:#666;
+nav button:hover,
+nav button.active{
+background:#18c78f;
 }
 
 .page{
-    display:none;
-    padding:20px;
+display:none;
 }
 
-.active{
-    display:block;
+.page.active{
+display:block;
+}
+
+.card{
+background:rgba(255,255,255,.08);
+border:1px solid rgba(255,255,255,.08);
+backdrop-filter:blur(10px);
+border-radius:25px;
+padding:20px;
+margin-bottom:20px;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+margin-bottom:20px;
+}
+
+.stat{
+background:rgba(255,255,255,.08);
+padding:20px;
+border-radius:20px;
+text-align:center;
+}
+
+.stat h2{
+color:#19d49c;
+font-size:35px;
+}
+
+.colors{
+display:flex;
+flex-wrap:wrap;
+gap:12px;
+margin-top:15px;
+}
+
+.color{
+width:55px;
+height:55px;
+border-radius:15px;
+cursor:pointer;
+border:3px solid white;
 }
 
 textarea{
-    width:100%;
-    height:300px;
-    padding:15px;
-    border-radius:10px;
-    resize:none;
-    font-size:17px;
-    margin-bottom:10px;
+width:100%;
+height:220px;
+border:none;
+border-radius:15px;
+padding:15px;
+font-size:17px;
+resize:none;
+margin-top:15px;
 }
 
-button.main{
-    background:#4a6cf7;
-    color:white;
-    border:none;
-    padding:12px 20px;
-    border-radius:10px;
-    cursor:pointer;
-    margin-bottom:20px;
-}
-
-button.main:hover{
-    opacity:0.9;
+.send{
+margin-top:15px;
+width:100%;
+padding:15px;
+background:#18c78f;
+color:white;
+border:none;
+border-radius:15px;
+font-size:18px;
+cursor:pointer;
 }
 
 select,input{
-    padding:10px;
-    margin-top:10px;
-    border-radius:8px;
+margin-top:15px;
+padding:12px;
+border-radius:10px;
+border:none;
 }
 
-#reponse{
-    margin-top:20px;
-    padding:15px;
-    background:white;
-    border-radius:10px;
-}
-
-footer{
-    text-align:center;
-    padding:20px;
+.reset{
+width:100%;
+padding:15px;
+background:#ff4d4d;
+color:white;
+border:none;
+border-radius:15px;
+font-size:18px;
+cursor:pointer;
 }
 </style>
-
 </head>
+
 <body>
 
-<header id="titre">
-Bloc Notes
+<header>
+<div class="logo">⚡ Daily Notes IA</div>
+<div class="time" id="clock">00:00:00</div>
 </header>
 
 <nav>
-<button onclick="ouvrir('accueil')">🏠 Accueil</button>
-<button onclick="ouvrir('ia')">🤖 IA</button>
-<button onclick="ouvrir('promo')">🎁 Code Promo</button>
-<button onclick="ouvrir('parametres')">⚙️ Paramètres</button>
+<button class="active" onclick="openPage('home',this)">🏠 Accueil</button>
+<button onclick="openPage('ia',this)">🤖 IA</button>
+<button onclick="openPage('promo',this)">🎁 Promo</button>
+<button onclick="openPage('settings',this)">⚙️ Paramètres</button>
 </nav>
 
 <!-- ACCUEIL -->
-<div id="accueil" class="page active">
+<div class="page active" id="home">
 
-<h2>📝 Bloc Notes</h2>
+<div class="stats">
+<div class="stat"><h2 id="count">0</h2>Notes</div>
+<div class="stat"><h2>✓</h2>Sauvegarde</div>
+<div class="stat"><h2>🌍</h2>Langue</div>
+</div>
 
-<textarea id="note" placeholder="Écris ici..."></textarea>
+<div class="card">
+<h2>🎨 Thème</h2>
 
-<button class="main" onclick="envoyerIA()">📤 Envoyer</button>
+<div class="colors">
+<div class="color" style="background:#18c78f" onclick="theme('#18c78f')"></div>
+<div class="color" style="background:#3b82f6" onclick="theme('#3b82f6')"></div>
+<div class="color" style="background:#9333ea" onclick="theme('#9333ea')"></div>
+<div class="color" style="background:#f97316" onclick="theme('#f97316')"></div>
+<div class="color" style="background:#ec4899" onclick="theme('#ec4899')"></div>
+<div class="color" style="background:#ef4444" onclick="theme('#ef4444')"></div>
+</div>
 
-<h3>🎨 Couleur</h3>
-<input type="color" onchange="changerCouleur(this.value)">
+</div>
 
-<br><br>
+<div class="card">
+<h2>🌍 Langue</h2>
 
-<h3>🌍 Langue</h3>
-
-<select onchange="changerLangue(this.value)">
-<option value="fr">Français</option>
-<option value="en">English</option>
-<option value="es">Español</option>
-<option value="de">Deutsch</option>
+<select id="lang">
+<option>🇫🇷 Français</option>
+<option>🇬🇧 English</option>
+<option>🇪🇸 Español</option>
+<option>🇩🇪 Deutsch</option>
 </select>
 
 </div>
 
+<div class="card">
+
+<h2>📝 Bloc-notes</h2>
+
+<textarea id="note" placeholder="Écris ici..."></textarea>
+
+<button class="send" onclick="send()">📤 Envoyer</button>
+
+</div>
+
+</div>
+
 <!-- IA -->
-<div id="ia" class="page">
+
+<div class="page" id="ia">
+
+<div class="card">
 
 <h2>🤖 IA</h2>
 
-<div id="reponse">
-Aucun message reçu.
-</div>
+<p id="result">
+Aucune note envoyée.
+</p>
 
 </div>
 
-<!-- CODE PROMO -->
-<div id="promo" class="page">
+</div>
+
+<!-- PROMO -->
+
+<div class="page" id="promo">
+
+<div class="card">
 
 <h2>🎁 Code Promo</h2>
 
-<input id="code" placeholder="Entre un code promo">
+<input id="promoCode" placeholder="Entrer un code">
 
-<button class="main" onclick="promo()">Valider</button>
+<button class="send" onclick="promo()">
+Valider
+</button>
 
-<p id="promoResultat"></p>
+<p id="promoResult"></p>
+
+</div>
 
 </div>
 
 <!-- PARAMETRES -->
-<div id="parametres" class="page">
+
+<div class="page" id="settings">
+
+<div class="card">
 
 <h2>⚙️ Paramètres</h2>
 
-<button class="main" onclick="resetNotes()">
+<button class="reset" onclick="resetData()">
 🗑 Réinitialiser la sauvegarde
 </button>
 
 </div>
 
-<footer>
-Bloc Notes 2026
-</footer>
+</div>
 
 <script>
 
-function ouvrir(page){
-document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-document.getElementById(page).classList.add("active");
+function openPage(id,b){
+
+document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));
+
+document.getElementById(id).classList.add("active");
+
+document.querySelectorAll("nav button").forEach(x=>x.classList.remove("active"));
+
+b.classList.add("active");
+
 }
 
-// Sauvegarde automatique
-
-let note=document.getElementById("note");
+const note=document.getElementById("note");
 
 note.value=localStorage.getItem("note")||"";
 
+document.getElementById("count").innerHTML=note.value.length;
+
 note.oninput=function(){
-localStorage.setItem("note",note.value);
-}
 
-// Envoyer vers IA
+localStorage.setItem("note",this.value);
 
-function envoyerIA(){
-
-document.getElementById("reponse").innerHTML=
-"<b>Votre note :</b><br><br>"+note.value;
-
-ouvrir("ia");
+document.getElementById("count").innerHTML=this.value.length;
 
 }
 
-// Couleur
+function send(){
 
-function changerCouleur(c){
+document.getElementById("result").innerHTML="<b>Votre note :</b><br><br>"+note.value;
 
-document.querySelector("header").style.background=c;
-
-localStorage.setItem("couleur",c);
+openPage("ia",document.querySelectorAll("nav button")[1]);
 
 }
 
-let couleur=localStorage.getItem("couleur");
+function theme(c){
 
-if(couleur){
+document.querySelector(".logo").style.color=c;
 
-document.querySelector("header").style.background=couleur;
-
-}
-
-// Langues
-
-function changerLangue(l){
-
-let titre=document.getElementById("titre");
-
-if(l=="fr") titre.innerHTML="Bloc Notes";
-if(l=="en") titre.innerHTML="Notebook";
-if(l=="es") titre.innerHTML="Bloc de Notas";
-if(l=="de") titre.innerHTML="Notizblock";
-
-localStorage.setItem("langue",l);
+localStorage.setItem("theme",c);
 
 }
 
-let langue=localStorage.getItem("langue");
+let t=localStorage.getItem("theme");
 
-if(langue){
+if(t){
 
-changerLangue(langue);
+document.querySelector(".logo").style.color=t;
 
 }
-
-// Code promo
 
 function promo(){
 
-let code=document.getElementById("code").value;
+let c=document.getElementById("promoCode").value;
 
-if(code=="PROMO2026"){
+document.getElementById("promoResult").innerHTML=
 
-document.getElementById("promoResultat").innerHTML="✅ Code accepté";
-
-}else{
-
-document.getElementById("promoResultat").innerHTML="❌ Code invalide";
+c=="PROMO2026"?"✅ Code accepté":"❌ Code invalide";
 
 }
 
-}
-
-// Réinitialiser
-
-function resetNotes(){
+function resetData(){
 
 if(confirm("Supprimer toutes les données ?")){
 
@@ -278,7 +342,15 @@ location.reload();
 
 }
 
+setInterval(function(){
+
+let d=new Date();
+
+document.getElementById("clock").innerHTML=d.toLocaleTimeString();
+
+},1000);
+
 </script>
 
 </body>
-  </html>
+    </html>
