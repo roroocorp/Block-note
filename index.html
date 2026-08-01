@@ -400,3 +400,177 @@ document.getElementById("content").value="";
 
 </body>
 </html>
+
+// ===== Compteur de notes =====
+
+function compteur(){
+document.querySelector("header").innerHTML=
+"📝 Daily Notes IA ("+notes.length+" notes)";
+}
+
+compteur();
+
+// ===== Date de création =====
+
+function dateActuelle(){
+
+const d=new Date();
+
+return d.toLocaleDateString()+" "+d.toLocaleTimeString();
+
+}
+
+// Modifier l'enregistrement
+
+const ancienSave=document.getElementById("saveBtn").onclick;
+
+document.getElementById("saveBtn").onclick=function(){
+
+const titre=document.getElementById("title").value.trim();
+const texte=document.getElementById("content").value.trim();
+
+if(titre==""||texte==""){
+alert("Complète tous les champs.");
+return;
+}
+
+if(editIndex==-1){
+
+notes.unshift({
+titre:titre,
+texte:texte,
+date:dateActuelle()
+});
+
+}else{
+
+notes[editIndex]={
+titre:titre,
+texte:texte,
+date:notes[editIndex].date
+};
+
+editIndex=-1;
+
+}
+
+localStorage.setItem("notes",JSON.stringify(notes));
+
+afficherNotes();
+
+compteur();
+
+document.getElementById("title").value="";
+document.getElementById("content").value="";
+
+};
+
+// ===== Affichage amélioré =====
+
+afficherNotes=function(){
+
+const zone=document.getElementById("notes");
+
+zone.innerHTML="";
+
+notes.forEach((note,index)=>{
+
+zone.innerHTML+=`
+<div class="noteCard">
+
+<h3 onclick="ouvrir(${index})">${note.titre}</h3>
+
+<p onclick="ouvrir(${index})">
+${note.texte.substring(0,40)}...
+</p>
+
+<small>${note.date}</small>
+
+<br><br>
+
+<button
+style="background:#ef4444;color:white;border:none;padding:8px 15px;border-radius:10px;"
+onclick="supprimer(${index})">
+🗑 Supprimer
+</button>
+
+</div>
+`;
+
+});
+
+}
+
+// ===== Supprimer =====
+
+function supprimer(i){
+
+if(confirm("Supprimer cette note ?")){
+
+notes.splice(i,1);
+
+localStorage.setItem("notes",JSON.stringify(notes));
+
+afficherNotes();
+
+compteur();
+
+}
+
+}
+
+// ===== Code promo =====
+
+document.querySelector("#promo button").onclick=function(){
+
+let code=document.querySelector("#promo input").value;
+
+if(code=="PROMO2026"){
+
+alert("🎉 Code accepté !");
+
+}else{
+
+alert("❌ Code invalide");
+
+}
+
+}
+
+// ===== Thème =====
+
+let couleur="#22c55e";
+
+document.body.insertAdjacentHTML("beforeend",`
+<div style="
+position:fixed;
+right:15px;
+top:15px;
+display:flex;
+gap:8px;
+">
+<div onclick="theme('#22c55e')" style="width:25px;height:25px;border-radius:50%;background:#22c55e;"></div>
+<div onclick="theme('#3b82f6')" style="width:25px;height:25px;border-radius:50%;background:#3b82f6;"></div>
+<div onclick="theme('#a855f7')" style="width:25px;height:25px;border-radius:50%;background:#a855f7;"></div>
+</div>
+`);
+
+function theme(c){
+
+couleur=c;
+
+document.querySelectorAll(".save").forEach(x=>x.style.background=c);
+
+document.querySelectorAll(".send").forEach(x=>x.style.background=c);
+
+localStorage.setItem("theme",c);
+
+}
+
+let t=localStorage.getItem("theme");
+
+if(t){
+
+theme(t);
+
+}
