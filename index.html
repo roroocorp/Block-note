@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Daily Notes IA</title>
 
 <style>
@@ -15,130 +15,134 @@ font-family:Arial,sans-serif;
 }
 
 body{
-background:linear-gradient(135deg,#0f172a,#1e293b,#0f766e);
+background:#0f172a;
 color:white;
+padding-bottom:90px;
 }
 
 header{
 padding:20px;
-font-size:26px;
-font-weight:bold;
 text-align:center;
-background:rgba(255,255,255,.05);
-backdrop-filter:blur(10px);
-}
-
-nav{
-display:flex;
-justify-content:space-around;
-padding:12px;
+font-size:28px;
+font-weight:bold;
 background:#111827;
-position:sticky;
-top:0;
 }
 
-nav button{
-background:none;
-border:none;
-color:white;
-font-size:15px;
-padding:10px;
-cursor:pointer;
-transition:.2s;
-}
-
-nav button:hover{
-color:#22c55e;
+.container{
+padding:15px;
 }
 
 .page{
 display:none;
-padding:20px;
 }
 
-.active{
+.page.active{
 display:block;
 }
 
 .card{
-background:rgba(255,255,255,.08);
-border-radius:20px;
-padding:18px;
-margin-bottom:20px;
-backdrop-filter:blur(8px);
-}
-
-.card h2{
+background:#1e293b;
+border:1px solid #334155;
+border-radius:18px;
+padding:15px;
 margin-bottom:15px;
 }
 
 textarea{
 width:100%;
-height:220px;
-border:none;
-outline:none;
+height:180px;
+background:#0f172a;
+color:white;
+border:1px solid #334155;
 border-radius:15px;
 padding:15px;
-font-size:16px;
 resize:none;
-}
-
-.send{
-width:100%;
-margin-top:15px;
-padding:14px;
-border:none;
-border-radius:15px;
-background:#22c55e;
-color:white;
-font-size:17px;
-cursor:pointer;
-}
-
-.send:hover{
-opacity:.9;
-}
-
-.colors{
-display:flex;
-gap:10px;
-margin-top:15px;
-flex-wrap:wrap;
-}
-
-.color{
-width:40px;
-height:40px;
-border-radius:50%;
-cursor:pointer;
-border:2px solid white;
-}
-
-select,input{
-width:100%;
-padding:12px;
-border-radius:12px;
-border:none;
 font-size:16px;
 margin-top:10px;
 }
 
-.reset{
+input{
 width:100%;
-padding:15px;
-background:#ef4444;
+padding:12px;
 border:none;
-color:white;
-font-size:17px;
-border-radius:15px;
+border-radius:12px;
+margin-top:10px;
+margin-bottom:10px;
+}
+
+.buttons{
+display:flex;
+gap:10px;
+margin-top:12px;
+}
+
+button{
+flex:1;
+padding:13px;
+border:none;
+border-radius:14px;
+font-size:16px;
 cursor:pointer;
 }
 
-.message{
-background:#1f2937;
+.save{
+background:#22c55e;
+color:white;
+}
+
+.send{
+background:#3b82f6;
+color:white;
+}
+
+.new{
+width:100%;
+margin-bottom:15px;
+background:#22c55e;
+color:white;
+}
+
+.noteCard{
+background:#1e293b;
+border-radius:16px;
 padding:15px;
-border-radius:15px;
-min-height:120px;
+margin-bottom:10px;
+cursor:pointer;
+border:1px solid #334155;
+}
+
+.noteCard h3{
+font-size:18px;
+margin-bottom:5px;
+}
+
+.noteCard p{
+color:#cbd5e1;
+font-size:14px;
+}
+
+.bottom{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+height:70px;
+background:#111827;
+display:flex;
+justify-content:space-around;
+align-items:center;
+border-top:1px solid #334155;
+}
+
+.bottom button{
+background:none;
+color:white;
+font-size:14px;
+border:none;
+}
+
+.bottom button:hover{
+color:#22c55e;
 }
 
 </style>
@@ -146,101 +150,55 @@ min-height:120px;
 
 <body>
 
-<header id="title">
+<header>
 📝 Daily Notes IA
 </header>
 
-<nav>
-
-<button onclick="show('home')">
-🏠 Accueil
-</button>
-
-<button onclick="show('ai')">
-🤖 IA
-</button>
-
-<button onclick="show('promo')">
-🎁 Promo
-</button>
-
-<button onclick="show('settings')">
-⚙️ Paramètres
-</button>
-
-</nav>
+<div class="container">
 
 <!-- ACCUEIL -->
 
 <div id="home" class="page active">
 
+<button class="new">
+➕ Nouvelle note
+</button>
+
 <div class="card">
 
-<h2 id="noteTitle">
-📝 Bloc-notes
-</h2>
+<input
+id="title"
+placeholder="Titre de la note">
 
-<textarea id="note" placeholder="Écris ici..."></textarea>
+<textarea
+id="content"
+placeholder="Écris ta note..."></textarea>
 
-<button class="send" id="sendBtn">
+<div class="buttons">
+
+<button
+class="save"
+id="saveBtn">
+💾 Enregistrer
+</button>
+
+<button
+class="send"
+id="sendBtn">
 📤 Envoyer
 </button>
 
 </div>
 
-<div class="card">
-
-<h2 id="themeTitle">
-🎨 Thème
-</h2>
-
-<div class="colors">
-
-<div class="color" style="background:#22c55e"></div>
-
-<div class="color" style="background:#3b82f6"></div>
-
-<div class="color" style="background:#a855f7"></div>
-
-<div class="color" style="background:#f97316"></div>
-
-<div class="color" style="background:#ef4444"></div>
-
-<div class="color" style="background:#eab308"></div>
-
 </div>
 
-</div>
-
-<div class="card">
-
-<h2 id="langTitle">
-🌍 Langue
+<h2 style="margin-bottom:10px;">
+📚 Mes notes
 </h2>
 
-<select id="language">
+<div id="notes">
 
-<option value="fr">
-Français
-</option>
-
-<option value="en">
-English
-</option>
-
-<option value="es">
-Español
-</option>
-
-<option value="de">
-Deutsch
-</option>
-
-<option value="it">
-Italiano
-</option>
-
-</select>
+<!-- Les petites cartes apparaîtront ici -->
 
 </div>
 
@@ -248,19 +206,15 @@ Italiano
 
 <!-- IA -->
 
-<div id="ai" class="page">
+<div id="ia" class="page">
 
 <div class="card">
 
-<h2>
-🤖 IA
-</h2>
+<h2>🤖 IA</h2>
 
-<div class="message" id="iaMessage">
-
+<p id="iaText">
 Aucune note envoyée.
-
-</div>
+</p>
 
 </div>
 
@@ -272,13 +226,11 @@ Aucune note envoyée.
 
 <div class="card">
 
-<h2>
-🎁 Code Promo
-</h2>
+<h2>🎁 Code Promo</h2>
 
 <input placeholder="Entrer un code">
 
-<button class="send">
+<button class="save">
 Valider
 </button>
 
@@ -292,207 +244,153 @@ Valider
 
 <div class="card">
 
-<h2>
-⚙️ Paramètres
-</h2>
+<h2>⚙️ Paramètres</h2>
 
-<button class="reset">
-🗑 Réinitialiser la sauvegarde
+<button style="background:#ef4444;color:white;">
+🗑 Réinitialiser les notes
 </button>
 
 </div>
 
+</div>
+
+</div>
+
+<div class="bottom">
+
+<button onclick="show('home')">
+🏠<br>Accueil
+</button>
+
+<button onclick="show('ia')">
+🤖<br>IA
+</button>
+
+<button onclick="show('promo')">
+🎁<br>Promo
+</button>
+
+<button onclick="show('settings')">
+⚙️<br>Paramètres
+</button>
+
     </div>
 
     <script>
+
+let notes=[];
+let editIndex=-1;
 
 function show(page){
 document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
 document.getElementById(page).classList.add("active");
 }
 
-// Sauvegarde automatique
-
-const note=document.getElementById("note");
-
-note.value=localStorage.getItem("note")||"";
-
-note.oninput=function(){
-localStorage.setItem("note",this.value);
+if(localStorage.getItem("notes")){
+notes=JSON.parse(localStorage.getItem("notes"));
+afficherNotes();
 }
 
-// Bouton Envoyer
+function afficherNotes(){
 
-document.getElementById("sendBtn").onclick=function(){
+const zone=document.getElementById("notes");
+zone.innerHTML="";
 
-let texte=note.value.trim();
+notes.forEach((note,index)=>{
 
-document.getElementById("iaMessage").innerHTML=
-texte==""?
-"Aucune note envoyée.":
-"<b>Votre note :</b><br><br>"+texte;
-
-show("ai");
-
-}
-
-// Couleurs
-
-document.querySelectorAll(".color").forEach(c=>{
-
-c.onclick=function(){
-
-let couleur=this.style.background;
-
-document.querySelector(".send").style.background=couleur;
-
-document.querySelector("header").style.color=couleur;
-
-localStorage.setItem("theme",couleur);
-
-}
+zone.innerHTML+=`
+<div class="noteCard" onclick="ouvrir(${index})">
+<h3>${note.titre}</h3>
+<p>${note.texte.substring(0,60)}...</p>
+</div>
+`;
 
 });
 
-let theme=localStorage.getItem("theme");
+}
 
-if(theme){
+document.querySelector(".new").onclick=function(){
 
-document.querySelector(".send").style.background=theme;
+editIndex=-1;
 
-document.querySelector("header").style.color=theme;
+document.getElementById("title").value="";
+
+document.getElementById("content").value="";
 
 }
 
-// Langues
+document.getElementById("saveBtn").onclick=function(){
 
-const txt={
+const titre=document.getElementById("title").value.trim();
+const texte=document.getElementById("content").value.trim();
 
-fr:{
-title:"📝 Daily Notes IA",
-home:"🏠 Accueil",
-ai:"🤖 IA",
-promo:"🎁 Promo",
-settings:"⚙️ Paramètres",
-note:"📝 Bloc-notes",
-theme:"🎨 Thème",
-lang:"🌍 Langue",
-send:"📤 Envoyer",
-reset:"🗑 Réinitialiser la sauvegarde",
-placeholder:"Écris ici..."
-},
-
-en:{
-title:"📝 Daily Notes IA",
-home:"🏠 Home",
-ai:"🤖 AI",
-promo:"🎁 Promo",
-settings:"⚙️ Settings",
-note:"📝 Notebook",
-theme:"🎨 Theme",
-lang:"🌍 Language",
-send:"📤 Send",
-reset:"🗑 Reset save",
-placeholder:"Write here..."
-},
-
-es:{
-title:"📝 Daily Notes IA",
-home:"🏠 Inicio",
-ai:"🤖 IA",
-promo:"🎁 Promoción",
-settings:"⚙️ Ajustes",
-note:"📝 Bloc de notas",
-theme:"🎨 Tema",
-lang:"🌍 Idioma",
-send:"📤 Enviar",
-reset:"🗑 Reiniciar",
-placeholder:"Escribe aquí..."
-},
-
-de:{
-title:"📝 Daily Notes IA",
-home:"🏠 Start",
-ai:"🤖 KI",
-promo:"🎁 Gutschein",
-settings:"⚙️ Einstellungen",
-note:"📝 Notizblock",
-theme:"🎨 Design",
-lang:"🌍 Sprache",
-send:"📤 Senden",
-reset:"🗑 Zurücksetzen",
-placeholder:"Hier schreiben..."
-},
-
-it:{
-title:"📝 Daily Notes IA",
-home:"🏠 Home",
-ai:"🤖 IA",
-promo:"🎁 Promo",
-settings:"⚙️ Impostazioni",
-note:"📝 Blocco Note",
-theme:"🎨 Tema",
-lang:"🌍 Lingua",
-send:"📤 Invia",
-reset:"🗑 Reimposta",
-placeholder:"Scrivi qui..."
+if(titre=="" || texte==""){
+alert("Remplis le titre et la note.");
+return;
 }
 
+if(editIndex==-1){
+
+notes.unshift({
+titre:titre,
+texte:texte
+});
+
+}else{
+
+notes[editIndex]={
+titre:titre,
+texte:texte
 };
 
-document.getElementById("language").onchange=function(){
-
-let l=this.value;
-
-localStorage.setItem("lang",l);
-
-updateLanguage(l);
+editIndex=-1;
 
 }
 
-function updateLanguage(l){
+localStorage.setItem("notes",JSON.stringify(notes));
 
-let t=txt[l];
+afficherNotes();
 
-document.getElementById("title").innerHTML=t.title;
-
-document.querySelectorAll("nav button")[0].innerHTML=t.home;
-
-document.querySelectorAll("nav button")[1].innerHTML=t.ai;
-
-document.querySelectorAll("nav button")[2].innerHTML=t.promo;
-
-document.querySelectorAll("nav button")[3].innerHTML=t.settings;
-
-document.getElementById("noteTitle").innerHTML=t.note;
-
-document.getElementById("themeTitle").innerHTML=t.theme;
-
-document.getElementById("langTitle").innerHTML=t.lang;
-
-document.getElementById("sendBtn").innerHTML=t.send;
-
-document.querySelector(".reset").innerHTML=t.reset;
-
-note.placeholder=t.placeholder;
+document.getElementById("title").value="";
+document.getElementById("content").value="";
 
 }
 
-let langue=localStorage.getItem("lang")||"fr";
+function ouvrir(i){
 
-document.getElementById("language").value=langue;
+editIndex=i;
 
-updateLanguage(langue);
+document.getElementById("title").value=notes[i].titre;
+document.getElementById("content").value=notes[i].texte;
 
-// Réinitialiser
+show("home");
 
-document.querySelector(".reset").onclick=function(){
+}
 
-if(confirm("Supprimer toutes les données ?")){
+document.getElementById("sendBtn").onclick=function(){
 
-localStorage.clear();
+let titre=document.getElementById("title").value;
+let texte=document.getElementById("content").value;
 
-location.reload();
+document.getElementById("iaText").innerHTML=
+"<b>"+titre+"</b><br><br>"+texte;
+
+show("ia");
+
+}
+
+document.querySelector("#settings button").onclick=function(){
+
+if(confirm("Supprimer toutes les notes ?")){
+
+notes=[];
+
+localStorage.removeItem("notes");
+
+afficherNotes();
+
+document.getElementById("title").value="";
+document.getElementById("content").value="";
 
 }
 
@@ -502,4 +400,3 @@ location.reload();
 
 </body>
 </html>
-    
