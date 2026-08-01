@@ -7,142 +7,169 @@
 
 <style>
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
 }
 
 body{
-background:#f5f5f5;
-transition:0.3s;
+    background:#f2f2f2;
 }
 
 header{
-background:#4a6cf7;
-color:white;
-padding:15px;
-text-align:center;
-font-size:28px;
+    background:#4a6cf7;
+    color:white;
+    text-align:center;
+    padding:18px;
+    font-size:28px;
 }
 
 nav{
-display:flex;
-justify-content:center;
-gap:15px;
-background:#222;
-padding:10px;
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    background:#222;
+    padding:10px;
 }
 
 nav button{
-padding:10px 20px;
-border:none;
-border-radius:8px;
-cursor:pointer;
-color:white;
-background:#444;
+    padding:10px 18px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    background:#444;
+    color:white;
+    transition:.2s;
 }
 
 nav button:hover{
-background:#666;
+    background:#666;
 }
 
 .page{
-display:none;
-padding:20px;
+    display:none;
+    padding:20px;
 }
 
 .active{
-display:block;
+    display:block;
 }
 
 textarea{
-width:100%;
-height:350px;
-padding:15px;
-font-size:18px;
-border-radius:10px;
-resize:none;
+    width:100%;
+    height:300px;
+    padding:15px;
+    border-radius:10px;
+    resize:none;
+    font-size:17px;
+    margin-bottom:10px;
+}
+
+button.main{
+    background:#4a6cf7;
+    color:white;
+    border:none;
+    padding:12px 20px;
+    border-radius:10px;
+    cursor:pointer;
+    margin-bottom:20px;
+}
+
+button.main:hover{
+    opacity:0.9;
 }
 
 select,input{
-padding:10px;
-margin:10px 0;
-border-radius:8px;
+    padding:10px;
+    margin-top:10px;
+    border-radius:8px;
 }
 
-.theme{
-margin-top:20px;
+#reponse{
+    margin-top:20px;
+    padding:15px;
+    background:white;
+    border-radius:10px;
 }
 
 footer{
-text-align:center;
-padding:15px;
-margin-top:20px;
+    text-align:center;
+    padding:20px;
 }
 </style>
 
 </head>
-
 <body>
 
-<header id="title">
+<header id="titre">
 Bloc Notes
 </header>
 
 <nav>
-<button onclick="show('home')">Accueil</button>
-<button onclick="show('ai')">IA</button>
-<button onclick="show('promo')">Code Promo</button>
-<button onclick="show('settings')">Paramètres</button>
+<button onclick="ouvrir('accueil')">🏠 Accueil</button>
+<button onclick="ouvrir('ia')">🤖 IA</button>
+<button onclick="ouvrir('promo')">🎁 Code Promo</button>
+<button onclick="ouvrir('parametres')">⚙️ Paramètres</button>
 </nav>
 
-<div id="home" class="page active">
+<!-- ACCUEIL -->
+<div id="accueil" class="page active">
 
-<h2>Bloc Notes</h2>
+<h2>📝 Bloc Notes</h2>
 
 <textarea id="note" placeholder="Écris ici..."></textarea>
 
-</div>
+<button class="main" onclick="envoyerIA()">📤 Envoyer</button>
 
-<div id="ai" class="page">
+<h3>🎨 Couleur</h3>
+<input type="color" onchange="changerCouleur(this.value)">
 
-<h2>Assistant IA</h2>
+<br><br>
 
-<p>Ici tu pourras connecter une IA plus tard.</p>
+<h3>🌍 Langue</h3>
 
-</div>
-
-<div id="promo" class="page">
-
-<h2>Code Promo</h2>
-
-<input type="text" placeholder="Entre un code promo">
-
-<button>Valider</button>
-
-</div>
-
-<div id="settings" class="page">
-
-<h2>Paramètres</h2>
-
-<h3>Langue</h3>
-
-<select onchange="changeLang(this.value)">
+<select onchange="changerLangue(this.value)">
 <option value="fr">Français</option>
 <option value="en">English</option>
 <option value="es">Español</option>
 <option value="de">Deutsch</option>
 </select>
 
-<div class="theme">
+</div>
 
-<h3>Couleur</h3>
+<!-- IA -->
+<div id="ia" class="page">
 
-<input type="color" onchange="changeColor(this.value)">
+<h2>🤖 IA</h2>
+
+<div id="reponse">
+Aucun message reçu.
+</div>
 
 </div>
+
+<!-- CODE PROMO -->
+<div id="promo" class="page">
+
+<h2>🎁 Code Promo</h2>
+
+<input id="code" placeholder="Entre un code promo">
+
+<button class="main" onclick="promo()">Valider</button>
+
+<p id="promoResultat"></p>
+
+</div>
+
+<!-- PARAMETRES -->
+<div id="parametres" class="page">
+
+<h2>⚙️ Paramètres</h2>
+
+<button class="main" onclick="resetNotes()">
+🗑 Réinitialiser la sauvegarde
+</button>
 
 </div>
 
@@ -152,45 +179,106 @@ Bloc Notes 2026
 
 <script>
 
-function show(page){
-
+function ouvrir(page){
 document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-
 document.getElementById(page).classList.add("active");
-
 }
 
-const note=document.getElementById("note");
+// Sauvegarde automatique
+
+let note=document.getElementById("note");
 
 note.value=localStorage.getItem("note")||"";
 
-note.oninput=()=>{
-
+note.oninput=function(){
 localStorage.setItem("note",note.value);
+}
+
+// Envoyer vers IA
+
+function envoyerIA(){
+
+document.getElementById("reponse").innerHTML=
+"<b>Votre note :</b><br><br>"+note.value;
+
+ouvrir("ia");
 
 }
 
-function changeColor(color){
+// Couleur
 
-document.querySelector("header").style.background=color;
+function changerCouleur(c){
+
+document.querySelector("header").style.background=c;
+
+localStorage.setItem("couleur",c);
 
 }
 
-function changeLang(lang){
+let couleur=localStorage.getItem("couleur");
 
-const title=document.getElementById("title");
+if(couleur){
 
-if(lang==="fr") title.innerHTML="Bloc Notes";
+document.querySelector("header").style.background=couleur;
 
-if(lang==="en") title.innerHTML="Notebook";
+}
 
-if(lang==="es") title.innerHTML="Bloc de Notas";
+// Langues
 
-if(lang==="de") title.innerHTML="Notizblock";
+function changerLangue(l){
+
+let titre=document.getElementById("titre");
+
+if(l=="fr") titre.innerHTML="Bloc Notes";
+if(l=="en") titre.innerHTML="Notebook";
+if(l=="es") titre.innerHTML="Bloc de Notas";
+if(l=="de") titre.innerHTML="Notizblock";
+
+localStorage.setItem("langue",l);
+
+}
+
+let langue=localStorage.getItem("langue");
+
+if(langue){
+
+changerLangue(langue);
+
+}
+
+// Code promo
+
+function promo(){
+
+let code=document.getElementById("code").value;
+
+if(code=="PROMO2026"){
+
+document.getElementById("promoResultat").innerHTML="✅ Code accepté";
+
+}else{
+
+document.getElementById("promoResultat").innerHTML="❌ Code invalide";
+
+}
+
+}
+
+// Réinitialiser
+
+function resetNotes(){
+
+if(confirm("Supprimer toutes les données ?")){
+
+localStorage.clear();
+
+location.reload();
+
+}
 
 }
 
 </script>
 
 </body>
-</html>
+  </html>
