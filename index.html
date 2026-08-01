@@ -2,7 +2,8 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Daily Notes IA</title>
 
 <style>
@@ -15,562 +16,638 @@ font-family:Arial,sans-serif;
 }
 
 body{
-background:#0f172a;
+background:linear-gradient(135deg,#0f172a,#1e293b,#0f766e);
 color:white;
-padding-bottom:90px;
+min-height:100vh;
 }
+
 
 header{
 padding:20px;
-text-align:center;
-font-size:28px;
+font-size:26px;
 font-weight:bold;
-background:#111827;
+text-align:center;
+background:rgba(255,255,255,.05);
+backdrop-filter:blur(10px);
 }
 
-.container{
-padding:15px;
-}
 
-.page{
-display:none;
-}
-
-.page.active{
-display:block;
-}
-
-.card{
-background:#1e293b;
-border:1px solid #334155;
-border-radius:18px;
-padding:15px;
-margin-bottom:15px;
-}
-
-textarea{
-width:100%;
-height:180px;
-background:#0f172a;
-color:white;
-border:1px solid #334155;
-border-radius:15px;
-padding:15px;
-resize:none;
-font-size:16px;
-margin-top:10px;
-}
-
-input{
-width:100%;
-padding:12px;
-border:none;
-border-radius:12px;
-margin-top:10px;
-margin-bottom:10px;
-}
-
-.buttons{
-display:flex;
-gap:10px;
-margin-top:12px;
-}
-
-button{
-flex:1;
-padding:13px;
-border:none;
-border-radius:14px;
-font-size:16px;
-cursor:pointer;
-}
-
-.save{
-background:#22c55e;
-color:white;
-}
-
-.send{
-background:#3b82f6;
-color:white;
-}
-
-.new{
-width:100%;
-margin-bottom:15px;
-background:#22c55e;
-color:white;
-}
-
-.noteCard{
-background:#1e293b;
-border-radius:16px;
-padding:15px;
-margin-bottom:10px;
-cursor:pointer;
-border:1px solid #334155;
-}
-
-.noteCard h3{
-font-size:18px;
-margin-bottom:5px;
-}
-
-.noteCard p{
-color:#cbd5e1;
-font-size:14px;
-}
-
-.bottom{
-position:fixed;
-bottom:0;
-left:0;
-width:100%;
-height:70px;
-background:#111827;
+nav{
 display:flex;
 justify-content:space-around;
-align-items:center;
-border-top:1px solid #334155;
+padding:12px;
+background:#111827;
+position:sticky;
+top:0;
 }
 
-.bottom button{
+
+nav button{
 background:none;
-color:white;
-font-size:14px;
 border:none;
+color:white;
+font-size:15px;
+padding:10px;
+cursor:pointer;
+transition:.2s;
 }
 
-.bottom button:hover{
+
+nav button:hover{
 color:#22c55e;
 }
 
+
+.page{
+display:none;
+padding:20px;
+}
+
+
+.active{
+display:block;
+}
+
+
+/* Cartes plus visibles */
+
+.card{
+background:rgba(255,255,255,0.12);
+border:1px solid rgba(255,255,255,0.25);
+border-radius:22px;
+padding:22px;
+margin-bottom:25px;
+backdrop-filter:blur(12px);
+box-shadow:0 8px 25px rgba(0,0,0,0.35);
+transition:.3s;
+}
+
+
+.card:hover{
+transform:translateY(-4px);
+box-shadow:0 12px 35px rgba(0,0,0,0.5);
+}
+
+
+.card h2{
+margin-bottom:15px;
+}
+
+
+textarea{
+width:100%;
+height:220px;
+border:none;
+outline:none;
+border-radius:15px;
+padding:15px;
+font-size:16px;
+resize:none;
+}
+
+
+.send{
+width:100%;
+margin-top:15px;
+padding:14px;
+border:none;
+border-radius:15px;
+background:#22c55e;
+color:white;
+font-size:17px;
+cursor:pointer;
+}
+
+
+.send:hover{
+opacity:.9;
+}
+
+
+.colors{
+display:flex;
+gap:10px;
+margin-top:15px;
+flex-wrap:wrap;
+}
+
+
+.color{
+width:40px;
+height:40px;
+border-radius:50%;
+cursor:pointer;
+border:2px solid white;
+}
+
+
+select,input{
+width:100%;
+padding:12px;
+border-radius:12px;
+border:none;
+font-size:16px;
+margin-top:10px;
+}
+
+
+.reset{
+width:100%;
+padding:15px;
+background:#ef4444;
+border:none;
+color:white;
+font-size:17px;
+border-radius:15px;
+cursor:pointer;
+}
+
+
+.message{
+background:#1f2937;
+padding:15px;
+border-radius:15px;
+min-height:120px;
+}
+
 </style>
+
 </head>
 
 <body>
 
-<header>
+<header id="title">
 📝 Daily Notes IA
 </header>
 
-<div class="container">
+
+<nav>
+
+<button onclick="show('home')">
+🏠 Accueil
+</button>
+
+<button onclick="show('ai')">
+🤖 IA
+</button>
+
+<button onclick="show('promo')">
+🎁 Promo
+</button>
+
+<button onclick="show('settings')">
+⚙️ Paramètres
+</button>
+
+</nav>
+
 
 <!-- ACCUEIL -->
 
 <div id="home" class="page active">
 
-<button class="new">
-➕ Nouvelle note
-</button>
-
 <div class="card">
 
-<input
-id="title"
-placeholder="Titre de la note">
+<h2 id="noteTitle">
+📝 Bloc-notes
+</h2>
 
-<textarea
-id="content"
-placeholder="Écris ta note..."></textarea>
 
-<div class="buttons">
+<textarea id="note" placeholder="Écris ici..."></textarea>
 
-<button
-class="save"
-id="saveBtn">
-💾 Enregistrer
-</button>
 
-<button
-class="send"
-id="sendBtn">
+<button class="send" id="sendBtn">
 📤 Envoyer
 </button>
 
-</div>
 
 </div>
 
-<h2 style="margin-bottom:10px;">
-📚 Mes notes
+
+
+<div class="card">
+
+<h2 id="themeTitle">
+🎨 Thème
 </h2>
 
-<div id="notes">
 
-<!-- Les petites cartes apparaîtront ici -->
+<div class="colors">
+
+<div class="color" style="background:#22c55e"></div>
+
+<div class="color" style="background:#3b82f6"></div>
+
+<div class="color" style="background:#a855f7"></div>
+
+<div class="color" style="background:#f97316"></div>
+
+<div class="color" style="background:#ef4444"></div>
+
+<div class="color" style="background:#eab308"></div>
 
 </div>
 
+
 </div>
+
+
+
+
+<div class="card">
+
+<h2 id="langTitle">
+🌍 Langue
+</h2>
+
+
+<select id="language">
+
+<option value="fr">
+Français
+</option>
+
+<option value="en">
+English
+</option>
+
+<option value="es">
+Español
+</option>
+
+<option value="de">
+Deutsch
+</option>
+
+<option value="it">
+Italiano
+</option>
+
+
+</select>
+
+
+</div>
+
+
+</div>
+
+
 
 <!-- IA -->
 
-<div id="ia" class="page">
+
+<div id="ai" class="page">
+
 
 <div class="card">
 
-<h2>🤖 IA</h2>
 
-<p id="iaText">
+<h2>
+🤖 IA
+</h2>
+
+
+<div class="message" id="iaMessage">
+
 Aucune note envoyée.
-</p>
 
 </div>
 
+
 </div>
+
+
+</div>
+
+
+
 
 <!-- PROMO -->
 
+
 <div id="promo" class="page">
+
 
 <div class="card">
 
-<h2>🎁 Code Promo</h2>
+
+<h2>
+🎁 Code Promo
+</h2>
+
 
 <input placeholder="Entrer un code">
 
-<button class="save">
+
+<button class="send">
 Valider
 </button>
 
-</div>
 
 </div>
+
+
+</div>
+
+
+
 
 <!-- PARAMÈTRES -->
 
+
 <div id="settings" class="page">
+
 
 <div class="card">
 
-<h2>⚙️ Paramètres</h2>
 
-<button style="background:#ef4444;color:white;">
-🗑 Réinitialiser les notes
+<h2>
+⚙️ Paramètres
+</h2>
+
+
+<button class="reset">
+🗑 Réinitialiser la sauvegarde
 </button>
+
 
 </div>
 
-</div>
 
 </div>
-
-<div class="bottom">
-
-<button onclick="show('home')">
-🏠<br>Accueil
-</button>
-
-<button onclick="show('ia')">
-🤖<br>IA
-</button>
-
-<button onclick="show('promo')">
-🎁<br>Promo
-</button>
-
-<button onclick="show('settings')">
-⚙️<br>Paramètres
-</button>
-
-    </div>
 
     <script>
 
-let notes=[];
-let editIndex=-1;
-
 function show(page){
-document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+
+document.querySelectorAll(".page").forEach(p=>{
+p.classList.remove("active");
+});
+
 document.getElementById(page).classList.add("active");
-}
-
-if(localStorage.getItem("notes")){
-notes=JSON.parse(localStorage.getItem("notes"));
-afficherNotes();
-}
-
-function afficherNotes(){
-
-const zone=document.getElementById("notes");
-zone.innerHTML="";
-
-notes.forEach((note,index)=>{
-
-zone.innerHTML+=`
-<div class="noteCard" onclick="ouvrir(${index})">
-<h3>${note.titre}</h3>
-<p>${note.texte.substring(0,60)}...</p>
-</div>
-`;
-
-});
 
 }
 
-document.querySelector(".new").onclick=function(){
 
-editIndex=-1;
 
-document.getElementById("title").value="";
+// Sauvegarde automatique
 
-document.getElementById("content").value="";
+const note=document.getElementById("note");
 
-}
+note.value=localStorage.getItem("note") || "";
 
-document.getElementById("saveBtn").onclick=function(){
 
-const titre=document.getElementById("title").value.trim();
-const texte=document.getElementById("content").value.trim();
+note.oninput=function(){
 
-if(titre=="" || texte==""){
-alert("Remplis le titre et la note.");
-return;
-}
+localStorage.setItem("note",this.value);
 
-if(editIndex==-1){
-
-notes.unshift({
-titre:titre,
-texte:texte
-});
-
-}else{
-
-notes[editIndex]={
-titre:titre,
-texte:texte
 };
 
-editIndex=-1;
 
-}
 
-localStorage.setItem("notes",JSON.stringify(notes));
 
-afficherNotes();
-
-document.getElementById("title").value="";
-document.getElementById("content").value="";
-
-}
-
-function ouvrir(i){
-
-editIndex=i;
-
-document.getElementById("title").value=notes[i].titre;
-document.getElementById("content").value=notes[i].texte;
-
-show("home");
-
-}
+// Bouton Envoyer + IA locale
 
 document.getElementById("sendBtn").onclick=function(){
 
-let titre=document.getElementById("title").value;
-let texte=document.getElementById("content").value;
+let texte=note.value.trim();
 
-document.getElementById("iaText").innerHTML=
-"<b>"+titre+"</b><br><br>"+texte;
+let ia=document.getElementById("iaMessage");
 
-show("ia");
 
-}
+if(texte===""){
 
-document.querySelector("#settings button").onclick=function(){
-
-if(confirm("Supprimer toutes les notes ?")){
-
-notes=[];
-
-localStorage.removeItem("notes");
-
-afficherNotes();
-
-document.getElementById("title").value="";
-document.getElementById("content").value="";
+ia.innerHTML="🤖 Aucune note envoyée.";
 
 }
 
+else{
+
+let mots=texte.toLowerCase();
+
+let reponse="🧠 Analyse locale terminée. Pense à organiser tes prochaines actions.";
+
+
+if(mots.includes("travail") || mots.includes("projet")){
+
+reponse="💼 Conseil IA : divise ton projet en petites tâches pour avancer plus facilement.";
+
 }
+
+
+else if(mots.includes("stress") || mots.includes("fatigue")){
+
+reponse="🌱 Conseil IA : prends du repos et garde un bon équilibre.";
+
+}
+
+
+else if(mots.includes("idée") || mots.includes("idee")){
+
+reponse="💡 Bonne idée ! Note les détails pour pouvoir la développer.";
+
+}
+
+
+
+ia.innerHTML=
+"<b>📝 Votre note :</b><br><br>"+
+texte+
+"<br><br><b>🤖 IA locale :</b><br>"+
+reponse;
+
+}
+
+
+show("ai");
+
+};
+
+
+
+
+
+// Couleurs
+
+document.querySelectorAll(".color").forEach(c=>{
+
+
+c.onclick=function(){
+
+
+let couleur=this.style.background;
+
+
+document.querySelectorAll(".send").forEach(btn=>{
+
+btn.style.background=couleur;
+
+});
+
+
+document.querySelector("header").style.color=couleur;
+
+
+localStorage.setItem("theme",couleur);
+
+
+};
+
+
+});
+
+
+
+let theme=localStorage.getItem("theme");
+
+
+if(theme){
+
+document.querySelectorAll(".send").forEach(btn=>{
+
+btn.style.background=theme;
+
+});
+
+
+document.querySelector("header").style.color=theme;
+
+}
+
+
+
+
+// Langues
+
+const txt={
+
+
+fr:{
+
+title:"📝 Daily Notes IA",
+home:"🏠 Accueil",
+ai:"🤖 IA",
+promo:"🎁 Promo",
+settings:"⚙️ Paramètres",
+note:"📝 Bloc-notes",
+theme:"🎨 Thème",
+lang:"🌍 Langue",
+send:"📤 Envoyer",
+reset:"🗑 Réinitialiser la sauvegarde",
+placeholder:"Écris ici..."
+
+},
+
+
+en:{
+
+title:"📝 Daily Notes IA",
+home:"🏠 Home",
+ai:"🤖 AI",
+promo:"🎁 Promo",
+settings:"⚙️ Settings",
+note:"📝 Notebook",
+theme:"🎨 Theme",
+lang:"🌍 Language",
+send:"📤 Send",
+reset:"🗑 Reset save",
+placeholder:"Write here..."
+
+}
+
+};
+
+
+
+
+
+document.getElementById("language").onchange=function(){
+
+let l=this.value;
+
+localStorage.setItem("lang",l);
+
+updateLanguage(l);
+
+};
+
+
+
+
+
+function updateLanguage(l){
+
+let t=txt[l] || txt.fr;
+
+
+document.getElementById("title").innerHTML=t.title;
+
+
+document.querySelectorAll("nav button")[0].innerHTML=t.home;
+
+document.querySelectorAll("nav button")[1].innerHTML=t.ai;
+
+document.querySelectorAll("nav button")[2].innerHTML=t.promo;
+
+document.querySelectorAll("nav button")[3].innerHTML=t.settings;
+
+
+document.getElementById("noteTitle").innerHTML=t.note;
+
+document.getElementById("themeTitle").innerHTML=t.theme;
+
+document.getElementById("langTitle").innerHTML=t.lang;
+
+document.getElementById("sendBtn").innerHTML=t.send;
+
+document.querySelector(".reset").innerHTML=t.reset;
+
+
+note.placeholder=t.placeholder;
+
+
+}
+
+
+
+
+
+let langue=localStorage.getItem("lang") || "fr";
+
+
+document.getElementById("language").value=langue;
+
+
+updateLanguage(langue);
+
+
+
+
+
+// Réinitialiser
+
+
+document.querySelector(".reset").onclick=function(){
+
+
+if(confirm("Supprimer toutes les données ?")){
+
+
+localStorage.clear();
+
+location.reload();
+
+
+}
+
+
+};
+
+
 
 </script>
 
+
 </body>
-</html>
-
-// ===== Compteur de notes =====
-
-function compteur(){
-document.querySelector("header").innerHTML=
-"📝 Daily Notes IA ("+notes.length+" notes)";
-}
-
-compteur();
-
-// ===== Date de création =====
-
-function dateActuelle(){
-
-const d=new Date();
-
-return d.toLocaleDateString()+" "+d.toLocaleTimeString();
-
-}
-
-// Modifier l'enregistrement
-
-const ancienSave=document.getElementById("saveBtn").onclick;
-
-document.getElementById("saveBtn").onclick=function(){
-
-const titre=document.getElementById("title").value.trim();
-const texte=document.getElementById("content").value.trim();
-
-if(titre==""||texte==""){
-alert("Complète tous les champs.");
-return;
-}
-
-if(editIndex==-1){
-
-notes.unshift({
-titre:titre,
-texte:texte,
-date:dateActuelle()
-});
-
-}else{
-
-notes[editIndex]={
-titre:titre,
-texte:texte,
-date:notes[editIndex].date
-};
-
-editIndex=-1;
-
-}
-
-localStorage.setItem("notes",JSON.stringify(notes));
-
-afficherNotes();
-
-compteur();
-
-document.getElementById("title").value="";
-document.getElementById("content").value="";
-
-};
-
-// ===== Affichage amélioré =====
-
-afficherNotes=function(){
-
-const zone=document.getElementById("notes");
-
-zone.innerHTML="";
-
-notes.forEach((note,index)=>{
-
-zone.innerHTML+=`
-<div class="noteCard">
-
-<h3 onclick="ouvrir(${index})">${note.titre}</h3>
-
-<p onclick="ouvrir(${index})">
-${note.texte.substring(0,40)}...
-</p>
-
-<small>${note.date}</small>
-
-<br><br>
-
-<button
-style="background:#ef4444;color:white;border:none;padding:8px 15px;border-radius:10px;"
-onclick="supprimer(${index})">
-🗑 Supprimer
-</button>
-
-</div>
-`;
-
-});
-
-}
-
-// ===== Supprimer =====
-
-function supprimer(i){
-
-if(confirm("Supprimer cette note ?")){
-
-notes.splice(i,1);
-
-localStorage.setItem("notes",JSON.stringify(notes));
-
-afficherNotes();
-
-compteur();
-
-}
-
-}
-
-// ===== Code promo =====
-
-document.querySelector("#promo button").onclick=function(){
-
-let code=document.querySelector("#promo input").value;
-
-if(code=="PROMO2026"){
-
-alert("🎉 Code accepté !");
-
-}else{
-
-alert("❌ Code invalide");
-
-}
-
-}
-
-// ===== Thème =====
-
-let couleur="#22c55e";
-
-document.body.insertAdjacentHTML("beforeend",`
-<div style="
-position:fixed;
-right:15px;
-top:15px;
-display:flex;
-gap:8px;
-">
-<div onclick="theme('#22c55e')" style="width:25px;height:25px;border-radius:50%;background:#22c55e;"></div>
-<div onclick="theme('#3b82f6')" style="width:25px;height:25px;border-radius:50%;background:#3b82f6;"></div>
-<div onclick="theme('#a855f7')" style="width:25px;height:25px;border-radius:50%;background:#a855f7;"></div>
-</div>
-`);
-
-function theme(c){
-
-couleur=c;
-
-document.querySelectorAll(".save").forEach(x=>x.style.background=c);
-
-document.querySelectorAll(".send").forEach(x=>x.style.background=c);
-
-localStorage.setItem("theme",c);
-
-}
-
-let t=localStorage.getItem("theme");
-
-if(t){
-
-theme(t);
-
-}
+    </html>
